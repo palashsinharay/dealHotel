@@ -47,6 +47,7 @@ class Welcome extends CI_Controller {
              //  echo "<pre>";print_r($tt); echo "</pre>";
                 
 	    //  $this->load->view('welcome_message');
+                $this->load->view('common/header');
                 $this->load->view('hotel-list');
 	}
 }
