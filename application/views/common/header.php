@@ -2,14 +2,15 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Hotel List Page - Deal Hotel Book</title>
+                <title>Hotel List Page - Deal Hotel Book</title>
 		<meta name="description" content="">
 		<meta name="keywords" content="">
 		<meta name="HandheldFriendly" content="True">
 		<meta name="MobileOptimized" content="320">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<script type="text/javascript" src="javascript/head.js"></script>
-		<link rel="stylesheet" type="text/css" href="styles/screen.css" media="screen">
+<!--		<script type="text/javascript" src="javascript/head.js"></script>-->
+        <script type="text/javascript" src="<?php echo base_url('javascript/head.js');?>"></script>
+                <link rel="stylesheet" type="text/css" href="styles/screen.css" media="screen">
 		<link rel="stylesheet" type="text/css" href="styles/print.css" media="print">
 		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	</head>

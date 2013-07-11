@@ -45,9 +45,10 @@
 				</ul>
 			</footer>
 		</div>
-		<script src="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry&amp;language=en"></script>
-		<script type="text/javascript">
+<script type="text/javascript">
 			head.js('javascript/jquery.min.js','javascript/jquery-ui.min.js','javascript/scripts.js','javascript/mobile.js')
 		</script>
+                <script src="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry&amp;language=en"></script>
+		
 	</body>
 </html>
