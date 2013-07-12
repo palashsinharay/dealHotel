@@ -93,8 +93,13 @@ $("#bSearch").submit(function(event){
     // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
         // log a message to the console
-        
+       // var hotel = $.parseJSON(response);
+       $('.news-a').html(response);
         console.log(response); //json encode response
+        
+        
+        
+        
     });
 
     // callback handler that will be called on failure
