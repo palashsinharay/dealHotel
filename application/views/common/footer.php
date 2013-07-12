@@ -76,7 +76,7 @@ $("#bSearch").submit(function(event){
     // setup some local variables
     var $form = $(this);
     // let's select and cache all the fields
-    var $inputs = $form.find("input, select, button, textarea");
+    var $inputs = $form.find("input, select, radio,button, textarea");
     // serialize the data in the form
     var serializedData = $form.serialize();
 
@@ -94,7 +94,7 @@ $("#bSearch").submit(function(event){
     request.done(function (response, textStatus, jqXHR){
         // log a message to the console
         
-        console.log(response);
+        console.log(response); //json encode response
     });
 
     // callback handler that will be called on failure

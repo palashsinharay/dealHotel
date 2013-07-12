@@ -145,10 +145,10 @@
 							<p class="select-c">
 								<label for="fcb">Location</label>
 								<select id="fcb" name="fcb">
-									<option>Seraton Hotel - Hanoi, Vietnam</option>
-									<option>Taj Hotel - Mumbai, India</option>
-									<option>Seraton Hotel - Hanoi, Vietnam</option>
-									<option>Taj Hotel - Mumbai, India</option>
+									<option>kolkata</option>
+									<option>mumbai</option>
+									<option>delhi</option>
+									<option>chennai</option>
 								</select>
 							</p>
 							<h3><span>03.</span> When?</h3>

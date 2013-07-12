@@ -95,7 +95,7 @@ class Ean {
 	function HotelLists($arrayInfo){
             
             $city = $arrayInfo['city'];
-            $cityId = $arrayInfo['cityId'];
+            $cityId = array_key_exists('cityId', $arrayInfo) ? $arrayInfo['cityId'] : '' ;
             $countryCode = $arrayInfo['countryCode'];
             $checkIn = $arrayInfo['checkIn'];
             $checkOut = $arrayInfo['checkOut'];

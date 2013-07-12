@@ -44,7 +44,7 @@ class Welcome extends CI_Controller {
                 
              // $tt = $this->ean->HotelLists($arrayInfo);
                
-             //  echo "<pre>";print_r($tt); echo "</pre>";
+               //echo "<pre>";print_r($tt); echo "</pre>";
                 
 	    //  $this->load->view('welcome_message');
                 $this->load->view('common/header');
