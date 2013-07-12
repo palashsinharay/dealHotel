@@ -1,4 +1,5 @@
-			<article id="content" class="cols-c">
+
+<article id="content" class="cols-c">
 				<div>
 					<div class="slider-a">
 						<figure class="image-b"><img src="temp/693x276.gif"  alt="Placeholder" width="693" height="276"> <figcaption>Paris Eurostar Breaks</figcaption></figure>
@@ -128,7 +129,7 @@
 					</div>
 				</div>
 				<aside>
-					<form action="./" method="post" class="form-c">
+					<form id="bSearch" action="./" method="post" class="form-c">
 						<fieldset>
 							<legend>Book now</legend>
 							<h3><span>01.</span> What?</h3>

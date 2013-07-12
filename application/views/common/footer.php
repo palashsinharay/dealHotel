@@ -49,6 +49,75 @@
 			head.js('javascript/jquery.min.js','javascript/jquery-ui.min.js','javascript/scripts.js','javascript/mobile.js')
 		</script>
                 <script src="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry&amp;language=en"></script>
-		
+		<script type="text/javascript">
+                    <!-- reff : http://stackoverflow.com/questions/5004233/jquery-ajax-post-example-->
+                    $(document).ready(function(){
+//                        request = $.ajax({
+//                            url: "<?php // echo base_url('index.php/ApiCall/hotelList')?>",
+//                        type: "post",
+//                        data: {name:'palash'}
+//                    });
+//
+//                    // callback handler that will be called on success
+//                    request.done(function (response, textStatus, jqXHR){
+//                        // log a message to the console
+//                        alert(response);
+//                        console.log(jqXHR);
+//                    });
+
+// variable to hold request
+var request;
+// bind to the submit event of our form
+$("#bSearch").submit(function(event){
+    // abort any pending request
+    if (request) {
+        request.abort();
+    }
+    // setup some local variables
+    var $form = $(this);
+    // let's select and cache all the fields
+    var $inputs = $form.find("input, select, button, textarea");
+    // serialize the data in the form
+    var serializedData = $form.serialize();
+
+    // let's disable the inputs for the duration of the ajax request
+    $inputs.prop("disabled", true);
+
+    // fire off the request to /form.php
+    request = $.ajax({
+        url: "<?php echo base_url('index.php/ApiCall/hotelList')?>",
+        type: "post",
+        data: serializedData
+    });
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+        // log a message to the console
+        
+        console.log(response);
+    });
+
+    // callback handler that will be called on failure
+    request.fail(function (jqXHR, textStatus, errorThrown){
+        // log the error to the console
+        console.error(
+            "The following error occured: "+
+            textStatus, errorThrown
+        );
+    });
+
+    // callback handler that will be called regardless
+    // if the request failed or succeeded
+    request.always(function () {
+        // reenable the inputs
+        $inputs.prop("disabled", false);
+    });
+
+    // prevent default posting of form
+    event.preventDefault();
+});
+
+                    });
+                </script>
 	</body>
 </html>
