@@ -27,7 +27,7 @@
 				</nav>
 				<nav id="nav">
 					<ul class="primary">
-						<li><a accesskey="1" href="index.html">Home</a> <em>(1)</em>
+						 <li><a accesskey="1" href="<?php echo base_url();?>">Home</a> <em>(1)</em>
 							<ul>
 								<li><a href="hotel-list.html">Hotel List</a></li>
 								<li><a href="hotel-details.html">Hotel Details</a></li>
@@ -42,7 +42,7 @@
 							</ul>
 						</li>
 
-						<li><a accesskey="7" href="contact.html">Contact</a> <em>(3)</em></li>
+						<li><a accesskey="7" href="<?php echo base_url('welcome/page/8');?>">Contact</a> <em>(3)</em></li>
 					</ul>
 					<ul class="secondary">
 						<li class="gb"><span>En</span>
