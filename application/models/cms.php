@@ -5,15 +5,8 @@
 class Cms extends CI_Model {
 
 	public $_table = 'dealcmspage';
-	public $_meduiatable = 'media_gallery';
-	public $_topmenu = 'topmenu';
-	public $_products = 'products';
-    public $_tender = 'tender';
-	public $_resource_center = 'resource_center';
-	public $_categories = 'categories';
-	public $_lowerSlider = 'lower_slider';
-    public $_user = 'users';
-	public $_newstable = 'news';
+        public $_user = 'users';
+	public $_dealNewsletter = 'dealnewsletter';
 	
 	public $result = null;
 
@@ -238,6 +231,32 @@ class Cms extends CI_Model {
 
 
         }
+        
+        public function newsLetterInsert($email)
+        {
+            try
+            {
+// Checking in DB if the email exists or not 
+		$this->query = $this->db->select('email')->from($this->_dealNewsletter);
+		$this->db->where(array('email'=>$email));
+		$query = $this->db->get();
+		$rowcount = $query->num_rows();
+                if($rowcount==0)
+                {
+                $this->db->set('email', $email);
+                $this->db->set('status','1');
+                $this->db->insert($this->_dealNewsletter);
+                $i_ret=$this->db->insert_id();
+                return $i_ret;
+                }
+            }
+           catch(Exception $err_obj)
+            {
+                show_error($err_obj->getMessage());
+            }
+        }
+   
+   
         
 
 	}	

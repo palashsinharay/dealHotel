@@ -31,7 +31,7 @@
 							<p>
 								<label for="na">Enter your email</label>
 								<input type="email" id="na" name="na" required>
-								<button type="submit">Submit</button>
+								<button type="submit" id="newsletter">Submit</button>
 							</p>
 						</fieldset>
 					</form>
@@ -122,8 +122,52 @@ $("#bSearch").submit(function(event){
     // prevent default posting of form
     event.preventDefault();
 });
+$("#newsletter").click(function(){
+    
+ var form_data = {
+                na 	: $('#na').val(),                            
+                ajax 	: '1'
+                };
 
-                    });
+                                                //alert($('#cap_div').text());	
+                                                if($('#na').val()=='')
+                                                        {
+                                                                        alert("Enter Email ID");
+                                                                        msg="Please Provide your email address !";
+                                                                        $('.success-message').html(msg);
+                                                                        $('.success-message').fadeIn(500).show();
+                                                                        return false;
+
+                                                        }
+//                                                else if(!validateEmail($('#email').val()))        
+//                                                        {
+//                                                        msg="Please provide a valid email address !";
+//                                                        alert("Please provide a valid email address !");
+//                                                        $('.success-message').html(msg);
+//                                                        $('.success-message').fadeIn(500).show();
+//                                                        return false;
+//                                                        }
+                                                        else
+                                                        {
+                                                            $.ajax({
+                                                            url: "<?php echo site_url('welcome/newsletter'); ?>",
+                                                            //url: "main/email_send",
+                                                            type: 'POST',
+                                                            async : false,
+                                                            data: form_data,
+                                                            success: function(msg) {
+                                                            alert(msg);
+
+                                                            $('.success-message').html(msg);
+                                                            $('.success-message').fadeIn(500).show();
+                                                            $('.loading').hide();
+                                                            }
+                                                            });
+                                                         }
+    return false;   
+    
+    });
+ });
                 </script>
 	</body>
 </html>
