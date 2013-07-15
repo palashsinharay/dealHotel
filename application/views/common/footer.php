@@ -46,8 +46,9 @@
 			</footer>
 		</div>
 <script type="text/javascript">
-			head.js('javascript/jquery.min.js','javascript/jquery-ui.min.js','javascript/scripts.js','javascript/mobile.js')
-		</script>
+    head.js("<?php echo base_url('javascript/jquery.min.js')?>","<?php echo base_url('javascript/jquery-ui.min.js')?>","<?php echo base_url('javascript/scripts.js')?>","<?php echo base_url('javascript/mobile.js')?>");
+    //head.js('javascript/jquery.min.js','javascript/jquery-ui.min.js','javascript/scripts.js','javascript/mobile.js')
+</script>
                 <script src="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry&amp;language=en"></script>
 		<script type="text/javascript">
                     <!-- reff : http://stackoverflow.com/questions/5004233/jquery-ajax-post-example-->
@@ -85,7 +86,7 @@ $("#bSearch").submit(function(event){
 
     // fire off the request to /form.php
     request = $.ajax({
-        url: "<?php echo base_url('index.php/ApiCall/hotelList')?>",
+        url: "<?php echo base_url('/ApiCall/hotelList')?>",
         type: "post",
         data: serializedData
     });

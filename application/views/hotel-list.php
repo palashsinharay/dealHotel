@@ -2,9 +2,9 @@
 <article id="content" class="cols-c">
 				<div>
 					<div class="slider-a">
-						<figure class="image-b"><img src="temp/693x276.gif"  alt="Placeholder" width="693" height="276"> <figcaption>Paris Eurostar Breaks</figcaption></figure>
-						<figure class="image-a"><img src="temp/693x276(1).gif" alt="Placeholder" width="693" height="276"> <figcaption>Paris Eurostar Breaks <span>Curabitur fringilla mauris interdum nec magna</span> <span>From $350</span></figcaption></figure>
-						<figure><img src="temp/693x276(2).gif" alt="Placeholder" width="693" height="276"></figure>
+						<figure class="image-b"><img src="<?php echo base_url('temp/693x276.gif');?>"  alt="Placeholder" width="693" height="276"> <figcaption>Paris Eurostar Breaks</figcaption></figure>
+						<figure class="image-a"><img src="<?php echo base_url('temp/693x276(1).gif');?>" alt="Placeholder" width="693" height="276"> <figcaption>Paris Eurostar Breaks <span>Curabitur fringilla mauris interdum nec magna</span> <span>From $350</span></figcaption></figure>
+						<figure><img src="<?php echo base_url('temp/693x276(2).gif');?>" alt="Placeholder" width="693" height="276"></figure>
 					</div>
 					<form action="./" method="post" class="module-b">
 						<fieldset>
@@ -38,7 +38,7 @@
 						<article>
 							<header>
 								<h2><a href="#">Sheraton hanoi Hotel</a></h2>
-								<figure><img src="temp/128x102.gif"  alt="Placeholder" width="128" height="102"> <figcaption>01</figcaption></figure>
+								<figure><img src="<?php echo base_url('temp/128x102.gif');?>"  alt="Placeholder" width="128" height="102"> <figcaption>01</figcaption></figure>
 								<p><span class="rating-a a">0/5</span>Seraton Hotel - Hanoi, Vietnam </p>
 							</header>
 							<p>Lorem ipsum dolor sit saelas met, consectetur adipi deese cing elit. Maus fringilla bibe endum es leo. Sorem ipsum dolor...</p>
@@ -51,7 +51,7 @@
 						<article>
 							<header>
 								<h2><a href="#">Taj hanoi Hotel</a></h2>
-								<figure><img src="temp/128x102(1).gif"  alt="Placeholder" width="128" height="102"> <figcaption>02</figcaption></figure>
+								<figure><img src="<?php echo base_url('temp/128x102(1).gif');?>"  alt="Placeholder" width="128" height="102"> <figcaption>02</figcaption></figure>
 								<p><span class="rating-a b">0/5</span>Seraton Hotel - Hanoi, Vietnam </p>
 							</header>
 							<p>Lorem ipsum dolor sit saelas met, consectetur adipi deese cing elit. Maus fringilla bibe endum es leo. Sorem ipsum dolor...</p>
@@ -64,7 +64,7 @@
 						<article>
 							<header>
 								<h2><a href="#">Hanoi Sheraton Hotel</a></h2>
-								<figure><img src="temp/128x102(2).gif"  alt="Placeholder" width="128" height="102"> <figcaption>03</figcaption></figure>
+								<figure><img src="<?php echo base_url('temp/128x102(2).gif');?>"  alt="Placeholder" width="128" height="102"> <figcaption>03</figcaption></figure>
 								<p><span class="rating-a c">0/5</span>Seraton Hotel - Hanoi, Vietnam </p>
 							</header>
 							<p>Lorem ipsum dolor sit saelas met, consectetur adipi deese cing elit. Maus fringilla bibe endum es leo. Sorem ipsum dolor...</p>
@@ -77,7 +77,7 @@
 						<article>
 							<header>
 								<h2><a href="#">Lorem Impsum Hotel</a></h2>
-								<figure><img src="temp/128x102(3).gif"  alt="Placeholder" width="128" height="102"> <figcaption>04</figcaption></figure>
+								<figure><img src="<?php echo base_url('temp/128x102(3).gif');?>"  alt="Placeholder" width="128" height="102"> <figcaption>04</figcaption></figure>
 								<p><span class="rating-a d">0/5</span>Seraton Hotel - Hanoi, Vietnam </p>
 							</header>
 							<p>Lorem ipsum dolor sit saelas met, consectetur adipi deese cing elit. Maus fringilla bibe endum es leo. Sorem ipsum dolor...</p>
@@ -90,7 +90,7 @@
 						<article>
 							<header>
 								<h2><a href="#">Just Another Hotel</a></h2>
-								<figure><img src="temp/128x102(4).gif"  alt="Placeholder" width="128" height="102"> <figcaption>05</figcaption></figure>
+								<figure><img src="<?php echo base_url('temp/128x102(4).gif');?>"  alt="Placeholder" width="128" height="102"> <figcaption>05</figcaption></figure>
 								<p><span class="rating-a e">0/5</span>Seraton Hotel - Hanoi, Vietnam </p>
 							</header>
 							<p>Lorem ipsum dolor sit saelas met, consectetur adipi deese cing elit. Maus fringilla bibe endum es leo. Sorem ipsum dolor...</p>
@@ -103,7 +103,7 @@
 						<article>
 							<header>
 								<h2><a href="#">Sheraton hanoi Hotel</a></h2>
-								<figure><img src="temp/128x102(5).gif"  alt="Placeholder" width="128" height="102"> <figcaption>06</figcaption></figure>
+								<figure><img src="<?php echo base_url('temp/128x102(5).gif');?>"  alt="Placeholder" width="128" height="102"> <figcaption>06</figcaption></figure>
 								<p><span class="rating-a f">0/5</span>Seraton Hotel - Hanoi, Vietnam </p>
 							</header>
 							<p>Lorem ipsum dolor sit saelas met, consectetur adipi deese cing elit. Maus fringilla bibe endum es leo. Sorem ipsum dolor...</p>
