@@ -52,12 +52,25 @@ class ApiCall extends CI_Controller{
                 echo $str;
     }
     public function hotelDetails($hotelId,$customerSessionId) {
+       
         $arrayInfo['hotelId'] = $hotelId;
         $arrayInfo['customerSessionId'] = $customerSessionId;
         
         $result = $this->ean->HotelDetails($arrayInfo);
-        echo "<pre>";
-        print_r($result);
+        
+       
+//        echo "<pre>";
+//        print_r($result);
+//        echo "</pre>";
+         $data['HotelSummary']=$result['HotelInformationResponse']['HotelSummary'];
+         $data['HotelDetails']=$result['HotelInformationResponse']['HotelDetails'];
+         $data['HotelImages']=$result['HotelInformationResponse']['HotelImages'];
+         $data['Facilities']=$result['HotelInformationResponse']['RoomTypes']['RoomType']['0']['roomAmenities']['RoomAmenity'];
+         $data['Rooms']=$result['HotelInformationResponse']['RoomTypes']['RoomType'];
+//        echo "<pre>";
+//        print_r($data['HotelSummary']);
+//        echo "</pre>";
+         
         
         
         $this->load->view('common/header');
