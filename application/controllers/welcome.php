@@ -73,11 +73,14 @@ class Welcome extends CI_Controller {
                 $this->load->view('hotel-list');
                 $this->load->view('common/footer');
 	}
-        public function hotelDetails($param) {
-                $this->load->view('common/header');
-                $this->load->view('hotel-details');
-                $this->load->view('common/footer');
-        }
+//        public function hotelDetails($hotelId,$customerSessionId) {
+//            
+//                
+//                
+//                $this->load->view('common/header');
+//                $this->load->view('hotel-details');
+//                $this->load->view('common/footer');
+//        }
         
          public function _renderView($page,$data) {
                 

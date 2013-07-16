@@ -27,16 +27,16 @@ class ApiCall extends CI_Controller{
                 //$arrayInfo['sort'] = "QUALITY";
                 
                $result = $this->ean->HotelLists($arrayInfo);
-//               echo "<pre>";
-//               print_r($result);
+               //echo "<pre>";
+               //print_r($result);
                 //echo json_encode($result);
                 $str = '';
                 foreach ($result['HotelListResponse']['HotelList']['HotelSummary'] as $value) {
                     //echo $value['hotelId'];
-                    
+                    $hotelDetailURL = base_url('ApiCall/hotelDetails/'.$value['hotelId'].'/'.$result['HotelListResponse']['customerSessionId']);
                    $str .="<article>
 							<header>
-								<h2><a href='#'>".$value['name']."</a></h2>
+								<h2><a href='".$hotelDetailURL."'>".$value['name']."</a></h2>
 								<figure><img src='http://images.travelnow.com".$value['thumbNailUrl']."'  alt='Placeholder' width='70' height='70'> <figcaption>01</figcaption></figure>
 								<p><span class='rating-a a'>0/5</span>".$value['locationDescription']." </p>
 							</header>
@@ -50,6 +50,19 @@ class ApiCall extends CI_Controller{
                 }
                 
                 echo $str;
+    }
+    public function hotelDetails($hotelId,$customerSessionId) {
+        $arrayInfo['hotelId'] = $hotelId;
+        $arrayInfo['customerSessionId'] = $customerSessionId;
+        
+        $result = $this->ean->HotelDetails($arrayInfo);
+        echo "<pre>";
+        print_r($result);
+        
+        
+        $this->load->view('common/header');
+        $this->load->view('hotel-details',$data);
+        $this->load->view('common/footer');
     }
 }
 ?>
