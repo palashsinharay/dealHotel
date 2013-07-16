@@ -134,6 +134,21 @@ class Welcome extends CI_Controller {
                                                     }
  	    
     }
+    public function newsletter()
+    {
+                $email=$_POST['na'];
+                $i_newid=$this->Cms->newsLetterInsert($email);
+ //               echo $i_newid;
+                if($i_newid)
+                {
+                    echo " You are subscribed for the news latter .";
+                }
+                else
+                {
+                    echo " Newsletter Subscription failed !!!!";
+                }
+                
+    }
 }
 
 /* End of file welcome.php */
