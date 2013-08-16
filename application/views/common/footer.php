@@ -86,7 +86,7 @@ $("#bSearch").submit(function(event){
 
     // fire off the request to /form.php
     request = $.ajax({
-        url: "<?php echo base_url('/ApiCall/hotelList')?>",
+        url: "<?php echo base_url('/AllApiCall/AllsupplierHotelList')?>",
         type: "post",
         data: serializedData
     });
@@ -122,6 +122,95 @@ $("#bSearch").submit(function(event){
     // prevent default posting of form
     event.preventDefault();
 });
+// variable to hold request
+var request4;
+// bind to the submit event of our form
+$("#fSearch").submit(function(event){
+    // abort any pending request
+    if (request4) {
+        request4.abort();
+    }
+    // setup some local variables
+    var $form = $(this);
+    // let's select and cache all the fields
+    var $inputs = $form.find("input, select, radio,button, textarea");
+    // serialize the data in the form
+    var serializedData = $form.serialize();
+
+    // let's disable the inputs for the duration of the ajax request
+    $inputs.prop("disabled", true);
+
+    // fire off the request to /form.php
+    request4 = $.ajax({
+        url: "<?php echo base_url('/AllApiCall/filter')?>",
+        type: "post",
+        data: serializedData
+    });
+
+    // callback handler that will be called on success
+    request4.done(function (response, textStatus, jqXHR){
+        // log a message to the console
+       // var hotel = $.parseJSON(response);
+       $('.news-a').html(response);
+        console.log(response); //json encode response
+        
+        
+        
+        
+    });
+
+    // callback handler that will be called on failure
+    request.fail(function (jqXHR, textStatus, errorThrown){
+        // log the error to the console
+        console.error(
+            "The following error occured: "+
+            textStatus, errorThrown
+        );
+    });
+
+    // callback handler that will be called regardless
+    // if the request failed or succeeded
+    request.always(function () {
+        // reenable the inputs
+        $inputs.prop("disabled", false);
+    });
+
+    // prevent default posting of form
+    event.preventDefault();
+});
+
+var request2;
+$(".pagination-a a").click(function(){
+   
+   // fire off the request to /form.php
+    request2 = $.ajax({
+        url: "<?php echo base_url('/AllApiCall/hotelPagination')?>"+"/"+$(this).attr('id'),
+        type: "post"
+        
+    });
+
+    // callback handler that will be called on success
+    request2.done(function (response, textStatus, jqXHR){
+        // log a message to the console
+       // var hotel = $.parseJSON(response);
+       $('.news-a').html(response);
+        console.log(response); //json encode response
+        
+        
+        
+        
+    });
+
+    // callback handler that will be called on failure
+    request2.fail(function (jqXHR, textStatus, errorThrown){
+        // log the error to the console
+        console.error(
+            "The following error occured: "+
+            textStatus, errorThrown
+        );
+    });
+});
+
 $("#newsletter").click(function(){
     
  var form_data = {
@@ -168,6 +257,61 @@ $("#newsletter").click(function(){
     
     });
  });
+ 
+ 
+ var request3;
+function shortdhb(id){
+   //alert(id);
+   if(id == 'ph2l'){
+       alert(id);
+       var l1 = 'price';
+       var l2 = 'h2l';
+   }
+   if(id == 'pl2h'){
+       alert(id);
+       var l1 = 'price';
+       var l2 = 'l2h';
+   }
+   if(id == 'rh2l'){
+       alert(id);
+       var l1 = 'rating';
+       var l2 = 'h2l';
+   }
+   if(id == 'rl2h'){
+       alert(id);
+       var l1 = 'rating';
+       var l2 = 'l2h';
+   }
+   
+   // fire off the request to /form.php
+    request3 = $.ajax({
+        url: "<?php echo base_url('/AllApiCall/hotelShort')?>"+"/"+l1+"/"+l2,
+        type: "post"
+        
+    });
+
+    // callback handler that will be called on success
+    request3.done(function (response, textStatus, jqXHR){
+        // log a message to the console
+       // var hotel = $.parseJSON(response);
+       $('.news-a').html(response);
+        console.log(response); //json encode response
+        
+        
+        
+        
+    });
+
+    // callback handler that will be called on failure
+    request3.fail(function (jqXHR, textStatus, errorThrown){
+        // log the error to the console
+        console.error(
+            "The following error occured: "+
+            textStatus, errorThrown
+        );
+    });
+}
+
                 </script>
 	</body>
 </html>

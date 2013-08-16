@@ -33,7 +33,7 @@ class Ean {
         public  $customerUserAgent;
         public  $customerIpAddress;
 	
-	function __construct($_cid = '55505' ,$_apiKey = "mshaz2hh57nw2xy8p3kd272j" ,$_local = "en_US",$_currency = "USD"){
+	function __construct($_cid = '55505' ,$_apiKey = "mshaz2hh57nw2xy8p3kd272j" ,$_local = "en_US",$_currency = "INR"){
        // $this->CI =& get_instance();
         //$this->CI->load->library('upload', $config);
         $this->cid = $_cid;
@@ -122,7 +122,7 @@ class Ean {
            $str= 'http://api.ean.com/ean-services/rs/hotel/v3/list?minorRev=21&cid='.$this->cid.
                     '&apiKey='.$this->apiKey.'&customerSessionId&customerUserAgent&customerIpAddress&locale='.$this->local.
                     '&currencyCode='.$this->currency.
-                    '&destinationString='.$city.
+                    '&city='.$city.
                     '&destinationId='.$cityId.
                     '&countryCode='.$countryCode.
                     '&propertyCategory='.$propertyCategory.

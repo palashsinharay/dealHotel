@@ -51,8 +51,11 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
-
-$autoload['libraries'] = array('database', 'session', 'xmlrpc','ean');
+/*
+ * custom session library loaded for session
+ * https://github.com/appleboy/CodeIgniter-Native-Session
+ */
+$autoload['libraries'] = array('database', 'session', 'xmlrpc','ean','booking');
 
 
 /*

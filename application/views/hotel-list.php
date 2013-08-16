@@ -11,21 +11,21 @@
 							<nav class="pagination-a">
 								<p>Page 01 of 06</p>
 								<ol>
-									<li class="prev"><a href="./">Previous</a></li>
-									<li class="active"><a href="./">01</a></li>
-									<li><a href="./">02</a></li>
-									<li><a href="./">03</a></li>
-									<li><a href="./">04</a></li>
-									<li class="next"><a href="./">Next</a></li>
+<!--									<li class="prev"><a href="#">Previous</a></li>-->
+									<li class="active"><a id="1">01</a></li>
+									<li><a id="10" >02</a></li>
+									<li><a id="20" >03</a></li>
+									<li><a id="30" >04</a></li>
+<!--									<li class="next"><a href="#">Next</a></li>-->
 								</ol>
 							</nav>
 							<p class="select-b">
 								<label for="mba">Short by:</label>
-								<select id="mba" name="mba">
-									<option>Availability</option>
-									<option>Price</option>
-									<option>Location</option>
-									<option>Lorem Impsum</option>
+								<select id="mba" name="mba" onchange="shortdhb($(this).attr('value'));">
+                                                                        <option value="ph2l">Price High to Low</option>
+									<option value="pl2h">Price Low to High</option>
+<!--									<option value="rh2l">Rating High to Low</option>
+									<option value="rl2h">Rating Low to High</option>-->
 								</select>
 							</p>
 							<p class="check-b">
@@ -131,8 +131,8 @@
 				<aside>
 					<form id="bSearch" action="./" method="post" class="form-c">
 						<fieldset>
-							<legend>Book now</legend>
-							<h3><span>01.</span> What?</h3>
+							<legend>Search now</legend>
+<!--							<h3><span>01.</span> What?</h3>
 							<ul class="check-c">
 								<li><label for="fcaa"><input type="radio" id="fcaa" name="fca"> Hotels</label></li>
 								<li><label for="fcab"><input type="radio" id="fcab" name="fca"> Flights</label></li>
@@ -140,14 +140,14 @@
 								<li><label for="fcad"><input type="radio" id="fcad" name="fca"> Rent car</label></li>
 								<li><label for="fcae"><input type="radio" id="fcae" name="fca"> Cruise</label></li>
 								<li><label for="fcaf"><input type="radio" id="fcaf" name="fca"> All</label></li>
-							</ul>
+							</ul>-->
 							<h3><span>02.</span> Where?</h3>
 							<p class="select-c">
 								<label for="fcb">Location</label>
 								<select id="fcb" name="fcb">
 									<option>kolkata</option>
 									<option>mumbai</option>
-									<option>delhi</option>
+									<option>New delhi</option>
 									<option>chennai</option>
 								</select>
 							</p>
@@ -196,7 +196,7 @@
 							<p class="submit"><button type="submit">Proceed</button></p>
 						</fieldset>
 					</form>
-					<form action="./" method="post" class="form-d">
+					<form id="fSearch" action="./" method="post" class="form-d">
 						<fieldset>
 							<legend>Refine search result</legend>
 							<div class="accordion-a">
@@ -208,7 +208,7 @@
 								<div>
 									<div class="bar-b"></div>
 								</div>
-								<h3 class="active">Accommodations Type</h3>
+<!--								<h3 class="active">Accommodations Type</h3>
 								<div>
 									<ul class="check-d">
 										<li><label for="cda"><input type="checkbox" id="cda" name="cda"> Apartments</label></li>
@@ -241,9 +241,9 @@
 								<h3>Payment Options</h3>
 								<div>
 									<p>Payment Options</p>
-								</div>
+								</div>-->
 							</div>
-							<p class="submit"><button type="reset">Reset all</button></p>
+							<p class="submit"><button type="submit">filter</button></p>
 						</fieldset>
 					</form>
 				</aside>

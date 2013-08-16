@@ -594,7 +594,7 @@ sub { bottom: -0.25em; }
 .scheme-c { position: relative; padding: 0 0 32px; color: #1a90e0; font-size: 1.4em; }
 	#root .scheme-c > span { position: absolute; right: 0; top: -9px; color: #3c80ec; font-size: 3.3em; font-weight: 700; font-family: Arial, Helvetica, sans-serif; text-shadow: 1px 1px 0 #d6d6d6; }
 	#root .scheme-c > span span { position: relative; top: -13px; font-size: .6em; }
-.scheme-d, #root .scheme-d { display: block; overflow: hidden; position: relative; width: 114px; height: 85px; padding: 18px 0 0 22px; background: url(../images/sprite-a.png) 0 -780px no-repeat; color: #fff; font-size: 4em; font-family: Arial, Helvetica, sans-serif; font-weight: 700; text-shadow: 1px 1px 1px #195795; text-align: center; }
+.scheme-d, #root .scheme-d { display: block; overflow: hidden; position: relative; width: 114px; height: 85px; padding: 18px 0 0 22px; background: url(../images/sprite-a.png) 0 -780px no-repeat; color: #fff; font-size: 3em; font-family: Arial, Helvetica, sans-serif; font-weight: 700; text-shadow: 1px 1px 1px #195795; text-align: center; }
 .scheme-d, #root .scheme-d { border-radius: 0 6px 0 0; -moz-border-radius: 0 6px 0 0; -webkit-border-radius: 0 6px 0 0; }
 	#root .scheme-d.a { height: 75px; padding-top: 28px; }
 	#root .scheme-d.b { height: 77px; padding-top: 26px; }
