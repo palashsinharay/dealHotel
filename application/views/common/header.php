@@ -13,6 +13,11 @@
                 <link rel="stylesheet" type="text/css" href="<?php echo base_url('styles/screen.css');?>" media="screen">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url('styles/print.css');?>" media="print">
 		<link rel="shortcut icon" href="<?php echo base_url('favicon.ico');?>" type="image/x-icon">
+<!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />-->
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('styles/mystyle.css');?>">
+	  <script src="<?php echo base_url('javascript/jquery.min.js')?>"></script>
+	  <script src="<?php echo base_url('javascript/jquery-ui.min.js')?>"></script>
+                
 	</head>
 	<body>
 		<div id="root">

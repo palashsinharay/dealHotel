@@ -45,14 +45,18 @@
 				</ul>
 			</footer>
 		</div>
+
 <script type="text/javascript">
-    head.js("<?php echo base_url('javascript/jquery.min.js')?>","<?php echo base_url('javascript/jquery-ui.min.js')?>","<?php echo base_url('javascript/scripts.js')?>","<?php echo base_url('javascript/mobile.js')?>");
+    head.js("<?php echo base_url('javascript/scripts.js')?>","<?php echo base_url('javascript/mobile.js')?>");
+    //head.js("<?php echo base_url('javascript/jquery.min.js')?>","<?php echo base_url('javascript/jquery-ui.min.js')?>","<?php echo base_url('javascript/scripts.js')?>","<?php echo base_url('javascript/mobile.js')?>");
     //head.js('javascript/jquery.min.js','javascript/jquery-ui.min.js','javascript/scripts.js','javascript/mobile.js')
 </script>
-                <script src="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry&amp;language=en"></script>
-		<script type="text/javascript">
-                    <!-- reff : http://stackoverflow.com/questions/5004233/jquery-ajax-post-example-->
-                    $(document).ready(function(){
+
+<!--                <script src="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry&amp;language=en"></script>-->
+		<!-- www.stackoverflow.com/questions/5004233/jquery-ajax-post-example-->
+                <script type="text/javascript">
+                    
+                   $(document).ready(function(){
 //                        request = $.ajax({
 //                            url: "<?php // echo base_url('index.php/ApiCall/hotelList')?>",
 //                        type: "post",
@@ -67,7 +71,25 @@
 //                    });
 
 // variable to hold request
-var request;
+ $(function() {
+var cache = {};
+$( "#fcb" ).autocomplete({
+minLength: 2,
+source: function( request, response ) {
+var term = request.term;
+if ( term in cache ) {
+response( cache[ term ] );
+return;
+}
+$.getJSON( "<?php echo base_url('/Autocomplete/index')?>", request, function( data, status, xhr ) {
+cache[ term ] = data;
+response( data );
+});
+}
+});
+});
+
+var request,page;
 // bind to the submit event of our form
 $("#bSearch").submit(function(event){
     // abort any pending request
@@ -83,25 +105,40 @@ $("#bSearch").submit(function(event){
 
     // let's disable the inputs for the duration of the ajax request
     $inputs.prop("disabled", true);
-
+    $('#mydiv').show(); 
+     
     // fire off the request to /form.php
     request = $.ajax({
-        url: "<?php echo base_url('/AllApiCall/AllsupplierHotelList')?>",
+        url: "<?php echo base_url('/AllApiCall/formInput')?>",
         type: "post",
         data: serializedData
     });
+    
 
     // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
         // log a message to the console
        // var hotel = $.parseJSON(response);
        $('.news-a').html(response);
+       $('#mydiv').hide();
         console.log(response); //json encode response
-        
-        
-        
-        
+   
     });
+    
+//    page = $.ajax({
+//        url: "<?php echo base_url('/AllApiCall/hotelPaginationLink')?>",
+//        type: "post"
+//        
+//    });
+//    // callback handler that will be called on success
+//    page.done(function (response, textStatus, jqXHR){
+//        // log a message to the console
+//       // var hotel = $.parseJSON(response);
+//       $('#pagination').html(response);
+//      
+//        console.log(response); //json encode response
+//   
+//    });
 
     // callback handler that will be called on failure
     request.fail(function (jqXHR, textStatus, errorThrown){
@@ -139,7 +176,7 @@ $("#fSearch").submit(function(event){
 
     // let's disable the inputs for the duration of the ajax request
     $inputs.prop("disabled", true);
-
+    $('#mydiv').show();
     // fire off the request to /form.php
     request4 = $.ajax({
         url: "<?php echo base_url('/AllApiCall/filter')?>",
@@ -152,15 +189,13 @@ $("#fSearch").submit(function(event){
         // log a message to the console
        // var hotel = $.parseJSON(response);
        $('.news-a').html(response);
+       $('#mydiv').hide();
         console.log(response); //json encode response
-        
-        
-        
-        
+    
     });
 
     // callback handler that will be called on failure
-    request.fail(function (jqXHR, textStatus, errorThrown){
+    request4.fail(function (jqXHR, textStatus, errorThrown){
         // log the error to the console
         console.error(
             "The following error occured: "+
@@ -170,7 +205,7 @@ $("#fSearch").submit(function(event){
 
     // callback handler that will be called regardless
     // if the request failed or succeeded
-    request.always(function () {
+    request4.always(function () {
         // reenable the inputs
         $inputs.prop("disabled", false);
     });
@@ -180,7 +215,11 @@ $("#fSearch").submit(function(event){
 });
 
 var request2;
-$(".pagination-a a").click(function(){
+$("#pagination a").click(function(){
+  
+   // let's enable the loader for the duration of the ajax request
+    
+    $('#mydiv').show();
    
    // fire off the request to /form.php
     request2 = $.ajax({
@@ -195,10 +234,7 @@ $(".pagination-a a").click(function(){
        // var hotel = $.parseJSON(response);
        $('.news-a').html(response);
         console.log(response); //json encode response
-        
-        
-        
-        
+     
     });
 
     // callback handler that will be called on failure
@@ -209,6 +245,13 @@ $(".pagination-a a").click(function(){
             textStatus, errorThrown
         );
     });
+    // callback handler that will be called regardless
+    // if the request failed or succeeded
+    request2.always(function () {
+        // disable the loader
+        $('#mydiv').hide();
+    });
+    
 });
 
 $("#newsletter").click(function(){
@@ -263,26 +306,26 @@ $("#newsletter").click(function(){
 function shortdhb(id){
    //alert(id);
    if(id == 'ph2l'){
-       alert(id);
+      
        var l1 = 'price';
        var l2 = 'h2l';
    }
    if(id == 'pl2h'){
-       alert(id);
+      
        var l1 = 'price';
        var l2 = 'l2h';
    }
    if(id == 'rh2l'){
-       alert(id);
-       var l1 = 'rating';
+      
+       var l1 = 'star';
        var l2 = 'h2l';
    }
    if(id == 'rl2h'){
-       alert(id);
-       var l1 = 'rating';
+       
+       var l1 = 'star';
        var l2 = 'l2h';
    }
-   
+   $('#mydiv').show();
    // fire off the request to /form.php
     request3 = $.ajax({
         url: "<?php echo base_url('/AllApiCall/hotelShort')?>"+"/"+l1+"/"+l2,
@@ -310,7 +353,15 @@ function shortdhb(id){
             textStatus, errorThrown
         );
     });
+    
+    // callback handler that will be called regardless
+    // if the request failed or succeeded
+    request3.always(function () {
+        // disable the loader
+        $('#mydiv').hide();
+    });
 }
+
 
                 </script>
 	</body>

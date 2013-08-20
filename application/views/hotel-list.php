@@ -1,4 +1,6 @@
-
+<div id="mydiv">
+    <img src="<?php echo base_url('images/ajax-loader.gif');?>" class="ajax-loader"/>
+</div>
 <article id="content" class="cols-c">
 				<div>
 					<div class="slider-a">
@@ -6,16 +8,28 @@
 						<figure class="image-a"><img src="<?php echo base_url('temp/693x276(1).gif');?>" alt="Placeholder" width="693" height="276"> <figcaption>Paris Eurostar Breaks <span>Curabitur fringilla mauris interdum nec magna</span> <span>From $350</span></figcaption></figure>
 						<figure><img src="<?php echo base_url('temp/693x276(2).gif');?>" alt="Placeholder" width="693" height="276"></figure>
 					</div>
+                                    
 					<form action="./" method="post" class="module-b">
 						<fieldset>
 							<nav class="pagination-a">
-								<p>Page 01 of 06</p>
-								<ol>
+<!--								<p>Page 01 of 06</p>-->
+								<ol id="pagination">
 <!--									<li class="prev"><a href="#">Previous</a></li>-->
 									<li class="active"><a id="1">01</a></li>
-									<li><a id="10" >02</a></li>
-									<li><a id="20" >03</a></li>
-									<li><a id="30" >04</a></li>
+									<li><a id="20" >2</a></li>
+									<li><a id="40" >3</a></li>
+									<li><a id="60" >4</a></li>
+                                                                        <li><a id="80" >5</a></li>
+                                                                        <li><a id="100" >6</a></li>
+                                                                        <li><a id="120" >7</a></li>
+                                                                        <li><a id="140" >8</a></li>
+                                                                        <li><a id="180" >9</a></li>
+                                                                        <li><a id="200" >10</a></li>
+                                                                        <li><a id="220" >11</a></li>
+                                                                        <li><a id="240" >12</a></li>
+                                                                        <li><a id="280" >13</a></li>
+                                                                        <li><a id="300" >14</a></li>
+                                                                        
 <!--									<li class="next"><a href="#">Next</a></li>-->
 								</ol>
 							</nav>
@@ -24,14 +38,14 @@
 								<select id="mba" name="mba" onchange="shortdhb($(this).attr('value'));">
                                                                         <option value="ph2l">Price High to Low</option>
 									<option value="pl2h">Price Low to High</option>
-<!--									<option value="rh2l">Rating High to Low</option>
-									<option value="rl2h">Rating Low to High</option>-->
+									<option value="rh2l">Rating High to Low</option>
+									<option value="rl2h">Rating Low to High</option>
 								</select>
 							</p>
-							<p class="check-b">
+<!--							<p class="check-b">
 								<label for="fcba"><input type="radio" id="fcba" name="fcb"> List</label>
 								<label for="fcbb"><input type="radio" id="fcbb" name="fcb"> Map</label>
-							</p>
+							</p>-->
 						</fieldset>
 					</form>
 					<div class="news-a">
@@ -143,13 +157,11 @@
 							</ul>-->
 							<h3><span>02.</span> Where?</h3>
 							<p class="select-c">
-								<label for="fcb">Location</label>
-								<select id="fcb" name="fcb">
-									<option>kolkata</option>
-									<option>mumbai</option>
-									<option>New delhi</option>
-									<option>chennai</option>
-								</select>
+                                                             <label for="fcb">Location</label>
+							<div class="ui-widget">	
+                                                           
+								<input id="fcb" name="fcb" />
+                                                        </div>
 							</p>
 							<h3><span>03.</span> When?</h3>
 							<p class="date-a">
@@ -203,10 +215,14 @@
 								<h3 class="active">Price Range</h3>
 								<div>
 									<div class="bar-a"></div>
+                                                                        <input id="pr_min" name="pr_min" value="800"/>
+                                                                        <input id="pr_max" name="pr_max" value="20000"/>
 								</div>
 								<h3 class="active">Star Rating</h3>
 								<div>
 									<div class="bar-b"></div>
+                                                                        <input id="star_min" name="star_min" value="1"/>
+                                                                        <input id="star_max" name="star_max" value="3"/>
 								</div>
 <!--								<h3 class="active">Accommodations Type</h3>
 								<div>

@@ -169,14 +169,18 @@ head.ready(function() {
 				$('.bar-a, .bar-b').wrapInner('<div class="slider"></div>');
 				$('.bar-a > .slider').slider({
 					range: true,
-					min: 100,
-					max: 2000,
-					values: [350, 1500],
+					min: 500,
+					max: 40000,
+					values: [800, 20000],
 					slide: function (event, ui) {
 						if (rv[0] !== ui.values[0]){
-							$('.bar-a .ui-slider > a:last-child').prev().children('input').val('$'+ui.values[0]);}
+							$('.bar-a .ui-slider > a:last-child').prev().children('input').val(ui.values[0]);
+							$('#pr_min').attr('value', ui.values[0]);
+							}
 						else{
-							$('.bar-a .ui-slider a:last-child input').val('$'+ui.values[1]+(ui.value>=mx?'+':''));}
+							$('.bar-a .ui-slider a:last-child input').val(ui.values[1]+(ui.value>=mx?'+':''));
+							$('#pr_max').attr('value', ui.values[1]);
+							}
 		
 						rv[0] = ui.values[0];
 						rv[1] = ui.values[1];
@@ -186,16 +190,31 @@ head.ready(function() {
 				rv[1] = $('.bar-a > .slider').slider('values', 1);
 				mx = $('.bar-a > .slider').slider('option','max');
 				$('.bar-a .ui-slider > a').html('<input type="text">');
-				$('.bar-a .ui-slider > a:last-child').prev().children('input').addClass('min').val('$'+rv[0]);
-				$('.bar-a .ui-slider > a:last-child > input').addClass('max').val('$'+rv[1]);
+				$('.bar-a .ui-slider > a:last-child').prev().children('input').addClass('min').val(rv[0]);
+				$('.bar-a .ui-slider > a:last-child > input').addClass('max').val(rv[1]);
 				
 				$('.bar-b').append('<span>To</span>');
+				var rc = [];
 				$('.bar-b > .slider').slider({
 					range: true,
 					min: 1,
 					max: 5,
-					values: [ 1, 3 ]
+					values: [ 1, 3 ],
+					slide: function (event, ui) {
+						if (rc[0] !== ui.values[0]){
+							$('.bar-b .ui-slider > a:last-child').prev().children('input').val(+ui.values[0]);
+							$('#star_min').attr('value', ui.values[0]);
+							}
+						else{
+							$('.bar-b .ui-slider a:last-child input').val(+ui.values[1]+(ui.value>=mx?'+':''));
+							$('#star_max').attr('value', ui.values[1]);
+							}
+		
+						rc[0] = ui.values[0];
+						rc[1] = ui.values[1];
+					}
 				});
+				
 
 			},
 			miscellaneous : function(){

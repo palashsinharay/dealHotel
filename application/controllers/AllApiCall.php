@@ -2,21 +2,54 @@
 
 class AllApiCall extends CI_Controller{
     
-    
-    public function filter($param) {
-       echo "<pre>";
-       print_r($_POST);
+    public function compareStrings($input, $words, $exclude = array()){
+	// no shortest distance found, yet
+	$shortest = -1;
+	
+	$input = strtolower($input);
+	if(!empty($exclude)) $input = str_ireplace($exclude, "", $input);
+
+	// loop through words to find the closest
+	foreach ($words as $key => $word) {
+		$stWord = strtolower($word['name']);
+		if(!empty($exclude)) $stWord = str_ireplace($exclude, "", $stWord);
+	
+		// calculate the distance between the input word,
+		// and the current word
+		$lev = levenshtein($input, $stWord);
+
+		// check for an exact match
+		if ($lev == 0) {
+
+			// closest word is this one (exact match)
+			$closest = $word['name'];
+			$shortest = 0;
+                        $delkey=$key;
+			// break out of the loop; we've found an exact match
+			break;
+		}
+
+		// if this distance is less than the next found shortest
+		// distance, OR if a next shortest word has not yet been found
+		if ($lev <= $shortest || $shortest < 0) {
+			// set the closest match, and shortest distance
+			$closest  = $word['name'];
+			$shortest = $lev;
+                        $delkey=$key;
+                        
+		}
+	}
+
+	return array("closest" => $closest, "shortest" => $shortest, "delkey" =>$delkey);
     }
-
-
-
-
-    public function AllsupplierHotelList($numberOfResult = 150) {
+    
+    public function formInput($numberOfResult = 150) {
                 
-                $this->session->unset_userdata('hotels');
-                $arrayInfo["city"] = trim($_POST['fcb']);
+                $arrayInfo["city"] = strstr(trim($_POST['fcb']), ',', true);
                 //$arrayInfo["city"] = "New Delhi";
-                $arrayInfo['countryCode'] = 'IN';
+                //$arrayInfo['countryCode'] = 'IN';
+                $arrayInfo['countryCode'] = strstr(trim($_POST['fcb']), ',',FALSE);
+                $arrayInfo['countryCode'] = substr($arrayInfo['countryCode'],1);
                 $arrayInfo['checkIn'] = trim($_POST['fcc']);
                 //$arrayInfo['checkIn'] = "8/13/2013";
                 $arrayInfo['checkOut'] = trim($_POST['fcd']);
@@ -24,6 +57,13 @@ class AllApiCall extends CI_Controller{
                 //$arrayInfo['rooms'] = "room1=1,3&room2=1,5";
                 $arrayInfo['rooms'] = "room1=1,3";
                 $arrayInfo['numberOfResult'] = $numberOfResult;
+                
+                $this->AllsupplierHotelList($arrayInfo);
+    }
+
+    public function AllsupplierHotelList($arrayInfo) {
+                $this->session->unset_userdata('hotels');
+                
                 
                 $result['EAN'] = $this->ean->HotelLists($arrayInfo);
                if(array_key_exists('EanWsError', $result['EAN']['HotelListResponse'])){
@@ -37,7 +77,9 @@ class AllApiCall extends CI_Controller{
 //                print_r($result);
 //                echo '</pre>';
 //                die();
-                $this->load->model('Dhbcity');
+                
+               
+               $this->load->model('Dhbcity');
                 $city = $this->Dhbcity->getUfi($arrayInfo["city"],$arrayInfo['countryCode']);
                 $arrayInfo['city'] = $city[0]->ufi;
                 
@@ -103,7 +145,7 @@ class AllApiCall extends CI_Controller{
                       'city' =>$value['city'],
                       'postalCode' =>$value['zip'],
                       'countryCode' =>$value['countrycode'],
-                      //'hotelRating' =>$value['hotelRating'],
+                      'hotelRating' =>$value['class'],
                       'CurrencyCode' =>$value['currencycode'],
                       'latitude' =>$value['location']['latitude'],
                       'longitude' =>$value['location']['longitude'],
@@ -154,6 +196,7 @@ class AllApiCall extends CI_Controller{
         }
         
         $finalResult = array_merge($hotelnameBooking,$hotelnameEAN);
+       
         $this->session->set_userdata(array('hotels' => $finalResult));
         //echo $commonMatch." common match hotels";
         //echo "<pre>"; print_r($this->session->all_userdata()) ; echo "</pre>";
@@ -164,69 +207,65 @@ class AllApiCall extends CI_Controller{
                 
                 
     }
-    public function hotelShort($on,$type){
-        
-                     //$this->session->sess_destroy();
-              $AllHotels = $this->session->userdata('hotels');
-              
-//              echo '<pre>';
-//              print_r($AllHotels);
-              foreach ($AllHotels as $key => $row) {
-                $lowRate[]  = $row[0]['lowRate'];
-                $highRate[] = $row[0]['highRate'];
-                $hotelRating[$row[0]['hotelId']] = $row[0]['hotelRating'];
-              }
-             if($on == 'price'){
-              if($type == 'h2l'){
-               sort($lowRate);   
-              }  elseif ($type == 'l2h') {
-                 rsort($lowRate); 
-              }
-              
-            
-//            echo 'gandu';
-//            echo '<pre>';
-//            print_r($lowRate);
-                foreach ($lowRate as $row) {
-                    foreach ($AllHotels as $key => $value) {
-
-                       if($row == $value[0]['lowRate']){
-                           $AllHotelsSorted[] = $value;
-                       }
-                    }
-               }
-            }  elseif ($on == 'rating') {
-                
-                if($type == 'h2l'){
-               asort($hotelRating);   
-              }  elseif ($type == 'l2h') {
-                 arsort($hotelRating); 
-              }
-              
-            
-//            echo 'gandu';
-//            echo '<pre>';
-//            print_r($lowRate);
-                foreach ($hotelRating as $hotelid => $row) {
-                    foreach ($AllHotels as $key => $value) {
-
-                       if($row == $value[0]['lowRate'] && $hotelid == $value[0]['hotelid'] ){
-                           $AllHotelsSorted[] = $value;
-                       }
-                    }
-               }
-                
-            }
-            $this->session->set_userdata(array('hotels_shorted' => $AllHotelsSorted));
-            $this->hotelPagination($offset = 1,$AllHotelsSorted);
-    }
     
+    public function hotelShort($type,$order) {
+        //$hotelsArray = $this->session->userdata('hotels');
+        $hotelsArray = $this->session->userdata('hotels_shorted') != NULL ? $this->session->userdata('hotels_shorted') : $this->session->userdata('hotels') ;
+//                echo "<pre>"; 
+//                print_r($hotelsArray); 
+//                echo "</pre>";
+        
+        foreach ($hotelsArray as $key => $row) {
+        $lowRate[]  = array( 'rate' => $row[0]['lowRate'],'hotelId' => $row[0]['hotelId'] );
+        //$highRate[] = array( 'rate' => $row[0]['highRate'],'hotelId' => $row[0]['hotelId'] );
+        $hotelRating[] = array( 'star' => $row[0]['hotelRating'],'hotelId' => $row[0]['hotelId'] );
+      }
+      
+        if($type == 'price'){
+          $shortparameter = $lowRate;
+        }  elseif ($type == 'star') {
+          $shortparameter = $hotelRating;
+        } else {
+            echo 'no short type parameter passed';
+                  die();
+        }
+            
+              if($order == 'l2h'){
+                sort($shortparameter);   
+              }  elseif ($order == 'h2l') {
+                 rsort($shortparameter); 
+              } else {
+                  echo 'no short order parameter passed';
+                  die();
+              }
+                          
+//            echo 'gandu';
+//            echo '<pre>';
+//            print_r($shortparameter);
+//            die();
+                foreach ($shortparameter as $row) {
+                    foreach ($hotelsArray as $key => $value) {
+
+                       if($row['hotelId'] == $value[0]['hotelId']){
+                           $AllHotelsSorted[] = $value;
+                       }
+                    }
+               }
+           $this->session->unset_userdata('hotels_shorted');
+           $this->session->set_userdata(array('hotels_shorted' => $AllHotelsSorted));
+           $this->hotelPagination($offset = 1,$AllHotelsSorted);
+//            echo 'gandu2';
+//            echo '<pre>';
+//            print_r($AllHotelsSorted);
+        
+        
+    }
+
     public function hotelPagination($offset = 1,$finalResult = NULL) {
              $offset = $offset  - 1;
 
              if($finalResult == NULL){
-              
-                 $AllHotels = $this->session->userdata('hotels_shorted') != NULL ? $this->session->userdata('hotels_shorted') : $this->session->userdata('hotels') ;   
+                $AllHotels = $this->session->userdata('hotels_shorted') != NULL ? $this->session->userdata('hotels_shorted') : $this->session->userdata('hotels') ;   
              } else {
                 $AllHotels  = $finalResult;
              }
@@ -235,7 +274,7 @@ class AllApiCall extends CI_Controller{
 //              echo '<pre>';
 //              print_r($AllHotelsSorted);
 //              die();
-              $output = array_slice($AllHotels, $offset, 10);
+              $output = array_slice($AllHotels, $offset, 20);
               $this->load->model('Dhbhoteldetails');
 //              echo '<pre>';
 //              print_r($output);
@@ -246,20 +285,27 @@ class AllApiCall extends CI_Controller{
                       if($value2['supplier'] == 'booking.com'){
                         $data = $this->Dhbhoteldetails->getBookingDetails($value2['hotelId']);
                         //echo '<br>fff '.$value2['name']."-".$value2['supplier'];
-                        if($data != NULL){
+                        if($data[0] != NULL){
                         
                         $output[$key][$key2]['thumbNailUrl'] = $data[0]->photo_url;
                         $output[$key][$key2]['shortDescription'] =$data[0]->desc_en;
-                        $output[$key][$key2]['hotelRating'] =$data[0]->class;
+                        //$output[$key][$key2]['hotelRating'] =$data[0]->class;
                         
+                        } else{
+                             $output[$key][$key2]['thumbNailUrl'] = 'fetch image from api';
+                             $output[$key][$key2]['shortDescription'] = '....';
                         }
                       }
                   }
               }
               
+              $this->ajaxRenderView($output);
+    }
+    
+    public function ajaxRenderView($output) {
               $nil= '';
               $str = '';
-                foreach ($output as $key =>$value) {
+              foreach ($output as $key =>$value) {
 //                    echo '<pre>';
 //                    print_r($value);
 //                    echo '</pre>';
@@ -277,38 +323,43 @@ class AllApiCall extends CI_Controller{
                         if(array_key_exists('thumbNailUrl', $value[0]) && array_key_exists('shortDescription', $value[0]) )
                         $image = $value[0]['thumbNailUrl'];
                         $desc  = $value[0]['shortDescription'];
-                        $rating = $value[0]['hotelRating'];
+                        $rating = (int)$value[0]['hotelRating'];
                     }
                     switch ($rating) {
-                        case 1:
-                            $rating = 'b';
+                        case 0:
+                            $rateClass = 'a';
                             break;
-                         case 1:
-                            $rating = 'c';
+                        case 1:
+                            $rateClass = 'b';
+                            break;
+                         case 2:
+                            $rateClass = 'c';
                             break;
                          case 3:
-                            $rating = 'd';
+                            $rateClass = 'd';
                             break;
                          case 4:
-                            $rating = 'e';
+                            $rateClass = 'e';
                             break;
                          case 5:
-                            $rating = 'f';
+                            $rateClass = 'f';
                             break;
                         default:
-                             $rating = 'a';
+                             $rateClass = 'a';
                             break;
                     }
                     
                     
                     
                    $EAN = array_key_exists('1',$value) == TRUE ? '<hr><a href='.$value[1]['url'].'>'.$value[1]['supplier'].'</a> : &nbsp'.$value[0]['CurrencyCode'].'&nbsp'.$value[1]['lowRate'].'<hr>' : '&nbsp';
-                    
+                   //TODO
+                    //$AGODA = array_key_exists('1',$value) == TRUE ? '<hr><a href='.$value[1]['url'].'>'.$value[1]['supplier'].'</a> : &nbsp'.$value[0]['CurrencyCode'].'&nbsp'.$value[1]['lowRate'].'<hr>' : '&nbsp';
+                   
                    $str .="<article>
 							<header>
 								<h2><a href='".$value[0]['url']."'>".$value[0]['name']."</a></h2><a href='".$value[0]['url']."'>".$value[0]['supplier']."</a>
-								<figure><img style='max-height:102px;max-width:128px' src='". $image."'  alt='Placeholder' width='128' height='102'></figure>
-								<p><span class='rating-a ".$rating."'>0/5</span>".$value[0]['address']." </p>
+								<figure><img style='max-height:102px;max-width:128px' src='". $image."'  alt='No Image' width='128' height='102'></figure>
+								<p><span class='rating-a ".$rateClass."'>".$value[0]['hotelRating']."</span>".$value[0]['address']." </p>
 							</header>
 							<p>".$desc."</p>".
                                                             $EAN
@@ -323,54 +374,55 @@ class AllApiCall extends CI_Controller{
                     
                 }
                 
-                echo $str;
-              
+              echo $str;
+    }
+    
+    public function hotelPaginationLink() {
+        $hotelsArray = $this->session->userdata('hotels');
+       
+        $Nopage = count($hotelsArray)/20;
+        echo '<li><a id="1" >1</a></li>';
+        echo '<li><a id="20" >2</a></li>';
+        for($i=3;$i<=$Nopage;$i++) {
+           echo '<li><a id="'.(($i+1)*10).'" >'.$i.'</a></li>';
+        }
+								
+    }
+    public function filter($param) {
+//        echo '<pre>';
+//        print_r($_REQUEST);
+        $this->hotelRangeFilter($_POST['pr_min'], $_POST['pr_max'], $_POST['star_min'], $_POST['star_max']) ;       
                 
     }
-    
-    public function compareStrings($input, $words, $exclude = array()){
-	// no shortest distance found, yet
-	$shortest = -1;
-	
-	$input = strtolower($input);
-	if(!empty($exclude)) $input = str_ireplace($exclude, "", $input);
+    public function hotelRangeFilter($priceMin,$priceMax,$starMin,$starMax) {
+        $hotelsArray = $this->session->userdata('hotels');
+//                echo "<pre>"; 
+//                print_r($hotelsArray); 
+//                echo "</pre>";
+       //echo  $priceMin; echo $priceMax;
+        foreach ($hotelsArray as $key => $row) {
+        if( ($row[0]['lowRate'] >= $priceMin ) && ($row[0]['lowRate'] <= $priceMax) )
+            {
+         if( ($row[0]['hotelRating'] >= $starMin ) && ($row[0]['hotelRating'] <= $starMax) )
+         { 
+             $AllHotelsSorted[] = $row;  
+         }
+         
+        }
+        
+      } 
+      echo count($AllHotelsSorted);      //die();
 
-	// loop through words to find the closest
-	foreach ($words as $key => $word) {
-		$stWord = strtolower($word['name']);
-		if(!empty($exclude)) $stWord = str_ireplace($exclude, "", $stWord);
-	
-		// calculate the distance between the input word,
-		// and the current word
-		$lev = levenshtein($input, $stWord);
-
-		// check for an exact match
-		if ($lev == 0) {
-
-			// closest word is this one (exact match)
-			$closest = $word['name'];
-			$shortest = 0;
-                        $delkey=$key;
-			// break out of the loop; we've found an exact match
-			break;
-		}
-
-		// if this distance is less than the next found shortest
-		// distance, OR if a next shortest word has not yet been found
-		if ($lev <= $shortest || $shortest < 0) {
-			// set the closest match, and shortest distance
-			$closest  = $word['name'];
-			$shortest = $lev;
-                        $delkey=$key;
-                        
-		}
-	}
-
-	return array("closest" => $closest, "shortest" => $shortest, "delkey" =>$delkey);
+        $this->session->unset_userdata('hotels_shorted');
+        $this->session->set_userdata(array('hotels_shorted' => $AllHotelsSorted));
+        $this->hotelPagination($offset = 1,$AllHotelsSorted);
+//            echo 'gandu2';
+//            echo '<pre>';
+//            print_r($AllHotelsSorted);
+        
+        
     }
-    
-    
-    
+       
 }
 ?>
  
