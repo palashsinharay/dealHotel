@@ -115,6 +115,22 @@ class Welcome extends CI_Controller {
                   $this->load->view('common/footer');
       //          $this->load->view('fe/common/footer.php',$data);
     }
+    
+        public function _renderViewRegister($page,$data) {
+                
+                //$data['featured_menu'] = $this->Cms->get_featured_menu();
+                //$data['news'] = $this->Cms->get_news_list(1);
+                //$data['whoweare_links']=$this->Cms->get_page_basedonCatId('aboutus');
+                
+               // echo "hiii";
+                //$data['top_menu']=$this->Cms->get_topmenu();
+//                $data['product_cat']=$this->Cms->get_product_cat();
+//                $this->load->view('fe/common/product_gallery_header.php',$data);
+                  $this->load->view('common/header');
+                  $this->load->view($page.'.php',$data);
+                  $this->load->view('common/footer');
+      //          $this->load->view('fe/common/footer.php',$data);
+    }
         
     public function page($id)
     {
@@ -149,6 +165,20 @@ class Welcome extends CI_Controller {
                 }
                 
     }
+
+    public function register()
+    {
+             $this->_renderViewRegister('register',$data);
+                
+    }
+
+    public function registerUser()
+    {
+           //  $this->_renderViewRegister('register',$data);
+                
+    }
+    
+    
 }
 
 /* End of file welcome.php */

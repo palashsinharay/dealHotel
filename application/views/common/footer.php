@@ -299,6 +299,99 @@ $("#newsletter").click(function(){
     return false;   
     
     });
+    
+    
+  $("#register").click(function(){
+   alert('gandu'); 
+ var form_data = {
+                usertype 	: $('#usertype').val(),  
+                fname           : $('#fname').val(), 
+                lname           : $('#lname').val(), 
+                address 	: $('#address').val(), 
+                mobileno 	: $('#mobileno').val(), 
+                email   	: $('#email').val(), 
+                ajax            : '1'
+                };
+
+                                                //alert($('#cap_div').text());	
+                                                     if($('#fname').val()=='')
+                                                        {
+                                                                        alert("Enter First Name");
+                                                                        msg="Enter First Name !";
+                                                                        $('.success-message').html(msg);
+                                                                        $('.success-message').fadeIn(500).show();
+                                                                        return false;
+
+                                                        }
+                                                       else if($('#lname').val()=='')
+                                                        {
+                                                                        alert("Enter Last Name");
+                                                                        msg="Enter Last Name !";
+                                                                        $('.success-message').html(msg);
+                                                                        $('.success-message').fadeIn(500).show();
+                                                                        return false;
+
+                                                        } 
+                                                        else if($('#address').val()=='')
+                                                        {
+                                                                        alert("Enter Address");
+                                                                        msg="Enter Last Name !";
+                                                                        $('.success-message').html(msg);
+                                                                        $('.success-message').fadeIn(500).show();
+                                                                        return false;
+
+                                                        } 
+                                                        else if($('#mobileno').val()=='')
+                                                        {
+                                                                        alert("Enter Mobile Number");
+                                                                        msg="Enter Last Name !";
+                                                                        $('.success-message').html(msg);
+                                                                        $('.success-message').fadeIn(500).show();
+                                                                        return false;
+
+                                                        } 
+                                                        else if($('#email').val()=='')
+                                                        {
+                                                                        alert("Enter Email");
+                                                                        msg="Enter Last Name !";
+                                                                        $('.success-message').html(msg);
+                                                                        $('.success-message').fadeIn(500).show();
+                                                                        return false;
+
+                                                        } 
+                                                        
+                                                     else if(!validateEmail($('#email').val()))        
+                                                        {
+                                                        msg="Please provide a valid email address !";
+                                                        alert("Please provide a valid email address !");
+                                                        $('.success-message').html(msg);
+                                                        $('.success-message').fadeIn(500).show();
+                                                        return false;
+                                                        }
+                                                        else
+                                                        {
+                                                            $.ajax({
+                                                            url: "<?php echo site_url('welcome/registerUser'); ?>",
+                                                            //url: "main/email_send",
+                                                            type: 'POST',
+                                                            async : false,
+                                                            data: form_data,
+                                                            success: function(msg) {
+                                                            alert(msg);
+
+                                                            $('.success-message').html(msg);
+                                                            $('.success-message').fadeIn(500).show();
+                                                            $('.loading').hide();
+                                                            }
+                                                            });
+                                                         }
+    return false;   
+    
+    }); 
+    
+    
+    
+    
  });
  
  
@@ -362,7 +455,14 @@ function shortdhb(id){
     });
 }
 
-
+function validateEmail(user_email){
+   var filter = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{1,4}$/;
+    if(filter.test(user_email)){
+        return true;
+    }else{
+        return false;
+    }
+}
                 </script>
 	</body>
 </html>

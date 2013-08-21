@@ -5,7 +5,7 @@
 class Cms extends CI_Model {
 
 	public $_table = 'dealcmspage';
-        public $_user = 'users';
+    public $_user = 'users';
 	public $_dealNewsletter = 'dealnewsletter';
 	
 	public $result = null;
