@@ -175,8 +175,129 @@ class Welcome extends CI_Controller {
     public function registerUser()
     {
            //  $this->_renderViewRegister('register',$data);
+           
+                    try
+                    {
+                            unset($_POST['action']);
+                            $posted=array();
+                            $posted["usertype"]  	= trim($this->input->post("usertype"));
+                            $posted["fname"]            = trim($this->input->post("fname"));
+                            $posted["lname"]    	= trim($this->input->post("lname"));
+                            $posted["address"]          = trim($this->input->post("address"));
+                            $posted["mobileno"]         = trim($this->input->post("mobileno"));
+                            $posted["email"]            = trim($this->input->post("email"));
+//                            echo "hello";
+//                            echo "<pre>";
+//                            print_r($posted);
+//                            echo "</pre>";
+//                            die();
+                                                           
+                         $i_newid=$this->Cms->insert_register_data($posted);
+                         //echo $i_newid;
+                         if($i_newid!=0){
+  // send email for verification
+echo $message='
+                            <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                            "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                            <html xmlns="http://www.w3.org/1999/xhtml">
+                            <head></head>
+                            <body>
+                            <table>
+                            <tr><td><h2> DealHotel User Registration </h2></td></tr>
+                            <tr><td>Click on the below link to veify your registration </td></tr>
+                            <tr><td><a href="'.  base_url('welcome/verifyMe/'.$i_newid).'">Verify Yourself</a></td></tr>
+                            </table>
+                            </body>
+                            </html>
+                            ';
+
+//                        $this->load->library('email');
+//                        $email_setting = array('mailtype'=>'html');
+//                        $this->email->initialize($email_setting);
+//                        // Give Probir da's email id here
+//                        $this->email->from('sahani.bunty9@gmail.com', 'Dealhotel');
+//                        //$this->email->to($data['userDetail']->email);
+//                        $this->email->to($posted["email"]);
+//                        //Give Probir da's email id here
+//                        //$this->email->bcc('palash.sinharay2000@gmail.com');
+//                        $this->email->subject('Dealhotel :');
+//                        $this->email->message($message);
+//                        if($this->email->send())
+//                        {
+//                            echo "please check your email for verification link "; 
+//                        }
+//                       else {
+//                               echo "Message sending failed !"; 
+//                            } 
+                        
+                   
+                             
+                         }
+                         
+                                                    					
+                    }
+                    catch(Exception $err_obj)
+                    {
+                                    show_error($err_obj->getMessage());
+                    }
+        
+        
                 
     }
+    
+      
+    public function verifyMe($id) {
+        //echo "you r verified";
+        
+        $i_updateid=$this->Cms->update_register_status($id);
+        $data['user_details'] = $this->Cms->get_user($id);
+//        echo "<pre>";
+//        print_r($data['user_details']);
+//        echo $data['user_details']->email;
+//        echo "</pre>";
+        
+        
+//       if($i_updateid!=0)
+//       {echo "verified !";}
+        
+         if($i_updateid!=0)
+                       {
+             
+ 
+ 
+                         $message='
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head></head>
+<body>
+<table>
+<tr><td colspan="2"><h2> DealHotel User Registration </h2></td></tr>
+<tr><td colspan="2">Congradulation !!!! Your registration is successfully verified .</td></tr>
+</table>
+</body>
+</html>
+';
+ 
+                           
+                        $this->load->library('email');
+                        $email_setting = array('mailtype'=>'html');
+                        $this->email->initialize($email_setting);
+                        // Give Probir da's email id here
+                        $this->email->from('sahani.bunty9@gmail.com', 'Dealhotel');
+                        //$this->email->to($data['userDetail']->email);
+                        $this->email->to($data['user_details']->email);
+                        //Give Probir da's email id here
+                        //$this->email->bcc('palash.sinharay2000@gmail.com');
+                        $this->email->subject('Dealhotel :');
+                        $this->email->message($message);
+                        $this->email->send();
+                           
+                       }
+        
+        
+    }
+
     
     
 }

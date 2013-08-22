@@ -10,8 +10,8 @@
 							<label for="fba">Registration Type</label>
 							
                                                         <select name="usertype" id="usertype" required>
-                                                            <option name="User" id="User">User</option>
-                                                            <option name="Hotel-Owner" id="Hotel-Owner">Hotel-Owner</option>
+                                                            <option name="user" id="user">User</option>
+                                                            <option name="hotel-owner" id="hotel-owner">Hotel-Owner</option>
                                                         </select>
 						</p>
                                                 <p>
