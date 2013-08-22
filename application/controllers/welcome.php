@@ -186,6 +186,7 @@ class Welcome extends CI_Controller {
                             $posted["address"]          = trim($this->input->post("address"));
                             $posted["mobileno"]         = trim($this->input->post("mobileno"));
                             $posted["email"]            = trim($this->input->post("email"));
+                            $posted["password"]            = trim($this->input->post("password"));
 //                            echo "hello";
 //                            echo "<pre>";
 //                            print_r($posted);

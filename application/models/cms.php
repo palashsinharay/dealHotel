@@ -118,6 +118,7 @@ function insert_register_data($posted)
                             $s_qry="Insert Into ".$this->_users." Set ";
                             $s_qry.="username=? ";
                             $s_qry.=",email=? ";
+                            $s_qry.=",password=? ";
                             $s_qry.=",fname=? ";
                             $s_qry.=",lname=? ";
                             $s_qry.=",mobile=? ";
@@ -126,6 +127,7 @@ function insert_register_data($posted)
                             $this->db->query($s_qry,array(
                             $posted["email"],
                             $posted["email"],
+                            md5($posted["email"]),    
                             $posted["fname"],
                             $posted["lname"],
                             $posted["mobileno"],

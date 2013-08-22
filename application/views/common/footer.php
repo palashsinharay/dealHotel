@@ -309,7 +309,8 @@ $("#newsletter").click(function(){
                 lname           : $('#lname').val(), 
                 address 	: $('#address').val(), 
                 mobileno 	: $('#mobileno').val(), 
-                email   	: $('#email').val(), 
+                email   	: $('#email').val(),
+                password   	: $('#password').val(),
                 ajax            : '1'
                 };
 
@@ -350,7 +351,8 @@ $("#newsletter").click(function(){
                                                                         return false;
 
                                                         } 
-                                                        else if($('#email').val()=='')
+                                                      
+                                                       else if($('#email').val()=='')
                                                         {
                                                                         alert("Enter Email");
                                                                         msg="Enter Last Name !";
@@ -358,8 +360,7 @@ $("#newsletter").click(function(){
                                                                         $('.success-message').fadeIn(500).show();
                                                                         return false;
 
-                                                        } 
-                                                        
+                                                        }    
                                                      else if(!validateEmail($('#email').val()))        
                                                         {
                                                         msg="Please provide a valid email address !";
@@ -368,6 +369,15 @@ $("#newsletter").click(function(){
                                                         $('.success-message').fadeIn(500).show();
                                                         return false;
                                                         }
+                                                       else if($('#password').val()=='')
+                                                        {
+                                                                        alert("Enter Your chosen password");
+                                                                        msg="Enter Your chosen password !";
+                                                                        $('.success-message').html(msg);
+                                                                        $('.success-message').fadeIn(500).show();
+                                                                        return false;
+
+                                                        }  
                                                         else
                                                         {
                                                             $.ajax({

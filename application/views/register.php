@@ -34,6 +34,10 @@
 							<label for="fbb">Email</label>
 							<input type="email" id="email" name="email" required>
 						</p>
+                                                <p>
+							<label for="fbb">Password</label>
+							<input type="password" id="password" name="password" required>
+						</p>
 						
 						<p><button type="submit" id="register">Register</button></p>
 					</fieldset>
