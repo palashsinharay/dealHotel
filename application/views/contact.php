@@ -1,5 +1,22 @@
-			<article id="content" class="cols-b">
-				<form  onSubmit="return submitForm();" action="" method="post" class="form-b" name="homefrm1" id="homefrm1">
+<?php if($emailSentContactSuccess!=NULL) { ?>
+<div class="success-message" style="color:#57a200; font-size:14px; font-weight:600; padding-left:190px;">
+    <?php echo  $emailSentContactSuccess; 
+      //unset($emailSentVerifySuccess);
+    $emailSentContactSuccess=NULL;
+    ?>
+</div>                           
+<?php } ?>
+                            
+<?php if($emailSentContactFail!=NULL) { ?>
+<div class="success-message" style="color:#FF0000; font-size:14px; font-weight:600; padding-left: 190px;"">
+    <?php echo  $emailSentContactFail; 
+   // unset($emailSentVerifyFail);
+     $emailSentContactFail=NULL;
+    ?>
+</div>                           
+<?php } ?> 		
+<article id="content" class="cols-b">
+				<form  onSubmit="return submitForm();" action="<?php echo site_url('welcome/contactEmail'); ?>" method="post" class="form-b" name="homefrm1" id="homefrm1">
 					<input type="hidden"  name="event" value="start" />
 					<fieldset>
 						<div id="alert">

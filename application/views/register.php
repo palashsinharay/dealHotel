@@ -26,7 +26,7 @@
 							<label for="fba">Address</label>
 							<input type="text" id="address" name="address" required>
 						</p>
-                                                 <p>
+                                                <p>
 							<label for="fba">Mobile No</label>
 							<input type="text" id="mobileno" name="mobileno" required>
 						</p>

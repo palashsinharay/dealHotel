@@ -27,8 +27,11 @@
 					<form action="./" method="post">
 						<fieldset>
 							<legend>Newsletter</legend>
-							<p>
-                                                        <form action="" method="post" name="newsletter" >
+
+							
+<p class="newsletter-message" style="display: none; color:#FF0000; font-size:14px; font-weight:300; "></p>							
+                                                        <p>
+
 								<label for="na">Enter your email</label>
 								<input type="email" id="na" name="na" required>
 								<button id="newsletter">Submit</button>
@@ -58,7 +61,7 @@
                 <script type="text/javascript">
                     
                    $(document).ready(function(){
-                       
+
 //                        request = $.ajax({
 //                            url: "<?php // echo base_url('index.php/ApiCall/hotelList')?>",
 //                        type: "post",
@@ -271,21 +274,21 @@ $("#newsletter").click(function(){
                                                 //alert($('#cap_div').text());	
                                                 if($('#na').val()=='')
                                                         {
-                                                                        alert("Enter Email ID");
+                                                                       // alert("Enter Email ID");
                                                                         msg="Please Provide your email address !";
-                                                                        $('.success-message').html(msg);
-                                                                        $('.success-message').fadeIn(500).show();
+                                                                        $('.newsletter-message').html(msg);
+                                                                        $('.newsletter-message').fadeIn(500).show();
                                                                         return false;
 
                                                         }
-//                                                else if(!validateEmail($('#email').val()))        
-//                                                        {
-//                                                        msg="Please provide a valid email address !";
-//                                                        alert("Please provide a valid email address !");
-//                                                        $('.success-message').html(msg);
-//                                                        $('.success-message').fadeIn(500).show();
-//                                                        return false;
-//                                                        }
+                                                else if(!validateEmail($('#na').val()))        
+                                                        {
+                                                        msg="Please provide a valid email address !";
+                                                       // alert("Please provide a valid email address !");
+                                                        $('.newsletter-message').html(msg);
+                                                        $('.newsletter-message').fadeIn(500).show();
+                                                        return false;
+                                                        }
                                                         else
                                                         {
                                                             $.ajax({
@@ -295,11 +298,11 @@ $("#newsletter").click(function(){
                                                             async : false,
                                                             data: form_data,
                                                             success: function(msg) {
-                                                            alert(msg);
+                                                            //alert(msg);
 
-                                                            $('.success-message').html(msg);
-                                                            $('.success-message').fadeIn(500).show();
-                                                            $('.loading').hide();
+                                                            $('.newsletter-message').html(msg);
+                                                            $('.newsletter-message').fadeIn(500).show();
+                                                            
                                                             }
                                                             });
                                                          }
@@ -308,103 +311,103 @@ $("#newsletter").click(function(){
     });
     
     
-  $("#register").click(function(){
-   alert('gandu'); 
- var form_data = {
-                usertype 	: $('#usertype').val(),  
-                fname           : $('#fname').val(), 
-                lname           : $('#lname').val(), 
-                address 	: $('#address').val(), 
-                mobileno 	: $('#mobileno').val(), 
-                email   	: $('#email').val(),
-                password   	: $('#password').val(),
-                ajax            : '1'
-                };
-
-                                                //alert($('#cap_div').text());	
-                                                     if($('#fname').val()=='')
-                                                        {
-                                                                        alert("Enter First Name");
-                                                                        msg="Enter First Name !";
-                                                                        $('.success-message').html(msg);
-                                                                        $('.success-message').fadeIn(500).show();
-                                                                        return false;
-
-                                                        }
-                                                       else if($('#lname').val()=='')
-                                                        {
-                                                                        alert("Enter Last Name");
-                                                                        msg="Enter Last Name !";
-                                                                        $('.success-message').html(msg);
-                                                                        $('.success-message').fadeIn(500).show();
-                                                                        return false;
-
-                                                        } 
-                                                        else if($('#address').val()=='')
-                                                        {
-                                                                        alert("Enter Address");
-                                                                        msg="Enter Last Name !";
-                                                                        $('.success-message').html(msg);
-                                                                        $('.success-message').fadeIn(500).show();
-                                                                        return false;
-
-                                                        } 
-                                                        else if($('#mobileno').val()=='')
-                                                        {
-                                                                        alert("Enter Mobile Number");
-                                                                        msg="Enter Last Name !";
-                                                                        $('.success-message').html(msg);
-                                                                        $('.success-message').fadeIn(500).show();
-                                                                        return false;
-
-                                                        } 
-                                                      
-                                                       else if($('#email').val()=='')
-                                                        {
-                                                                        alert("Enter Email");
-                                                                        msg="Enter Last Name !";
-                                                                        $('.success-message').html(msg);
-                                                                        $('.success-message').fadeIn(500).show();
-                                                                        return false;
-
-                                                        }    
-                                                     else if(!validateEmail($('#email').val()))        
-                                                        {
-                                                        msg="Please provide a valid email address !";
-                                                        alert("Please provide a valid email address !");
-                                                        $('.success-message').html(msg);
-                                                        $('.success-message').fadeIn(500).show();
-                                                        return false;
-                                                        }
-                                                       else if($('#password').val()=='')
-                                                        {
-                                                                        alert("Enter Your chosen password");
-                                                                        msg="Enter Your chosen password !";
-                                                                        $('.success-message').html(msg);
-                                                                        $('.success-message').fadeIn(500).show();
-                                                                        return false;
-
-                                                        }  
-                                                        else
-                                                        {
-                                                            $.ajax({
-                                                            url: "<?php echo site_url('welcome/registerUser'); ?>",
-                                                            //url: "main/email_send",
-                                                            type: 'POST',
-                                                            async : false,
-                                                            data: form_data,
-                                                            success: function(msg) {
-                                                            alert(msg);
-
-                                                            $('.success-message').html(msg);
-                                                            $('.success-message').fadeIn(500).show();
-                                                            $('.loading').hide();
-                                                            }
-                                                            });
-                                                         }
-    return false;   
-    
-    }); 
+//  $("#register").click(function(){
+//   alert('gandu'); 
+// var form_data = {
+//                usertype 	: $('#usertype').val(),  
+//                fname           : $('#fname').val(), 
+//                lname           : $('#lname').val(), 
+//                address 	: $('#address').val(), 
+//                mobileno 	: $('#mobileno').val(), 
+//                email   	: $('#email').val(),
+//                password   	: $('#password').val(),
+//                ajax            : '1'
+//                };
+//
+//                                                //alert($('#cap_div').text());	
+//                                                     if($('#fname').val()=='')
+//                                                        {
+//                                                                        //alert("Enter First Name");
+//                                                                        msg="Enter First Name !";
+//                                                                        $('.success-message').html(msg);
+//                                                                        $('.success-message').fadeIn(500).show();
+//                                                                        return false;
+//
+//                                                        }
+//                                                       else if($('#lname').val()=='')
+//                                                        {
+//                                                                       // alert("Enter Last Name");
+//                                                                        msg="Enter Last Name !";
+//                                                                        $('.success-message').html(msg);
+//                                                                        $('.success-message').fadeIn(500).show();
+//                                                                        return false;
+//
+//                                                        } 
+//                                                        else if($('#address').val()=='')
+//                                                        {
+//                                                                       // alert("Enter Address");
+//                                                                        msg="Enter Address !";
+//                                                                        $('.success-message').html(msg);
+//                                                                        $('.success-message').fadeIn(500).show();
+//                                                                        return false;
+//
+//                                                        } 
+//                                                        else if($('#mobileno').val()=='')
+//                                                        {
+//                                                                       // alert("Enter Mobile Number");
+//                                                                        msg="Enter Mobile Number !";
+//                                                                        $('.success-message').html(msg);
+//                                                                        $('.success-message').fadeIn(500).show();
+//                                                                        return false;
+//
+//                                                        } 
+//                                                      
+//                                                       else if($('#email').val()=='')
+//                                                        {
+//                                                                       // alert("Enter Email");
+//                                                                        msg="Enter Email !";
+//                                                                        $('.success-message').html(msg);
+//                                                                        $('.success-message').fadeIn(500).show();
+//                                                                        return false;
+//
+//                                                        }    
+//                                                     else if(!validateEmail($('#email').val()))        
+//                                                        {
+//                                                        msg="Please provide a valid email address !";
+//                                                        //alert("Please provide a valid email address !");
+//                                                        $('.success-message').html(msg);
+//                                                        $('.success-message').fadeIn(500).show();
+//                                                        return false;
+//                                                        }
+//                                                       else if($('#password').val()=='')
+//                                                        {
+//                                                                        //alert("Enter Your chosen password");
+//                                                                        msg="Enter Your chosen password !";
+//                                                                        $('.success-message').html(msg);
+//                                                                        $('.success-message').fadeIn(500).show();
+//                                                                        return false;
+//
+//                                                        }  
+//                                                        else
+//                                                        {
+//                                                            $.ajax({
+//                                                            url: "<?php echo site_url('welcome/registerUser'); ?>",
+//                                                            //url: "main/email_send",
+//                                                            type: 'POST',
+//                                                            async : false,
+//                                                            data: form_data,
+//                                                            success: function(msg) {
+//                                                            alert(msg);
+//
+//                                                            $('.success-message').html(msg);
+//                                                            $('.success-message').fadeIn(500).show();
+//                                                            $('.loading').hide();
+//                                                            }
+//                                                            });
+//                                                         }
+//    return false;   
+//    
+//    }); 
     
     
   //call search after page load  

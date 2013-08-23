@@ -356,7 +356,7 @@ $config['rewrite_short_tags'] = FALSE;
 |
 */
 $config['proxy_ips'] = '';
-
+$config['subclass_prefix'] = 'MY_';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
