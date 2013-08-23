@@ -341,7 +341,77 @@ $data['emailMsg']=$message;
         
     }
 
-    
+    public function contactEmail() {
+                 //  $this->_renderViewRegister('register',$data);
+           
+                    try
+                    {
+                         
+                        
+                        
+                        //unset($_POST['action']);
+                            $posted=array();
+                            $posted["name"]  	= trim($this->input->post("name"));
+                            $posted["email"]            = trim($this->input->post("email"));
+                            $posted["msg"]    	= trim($this->input->post("msg"));
+                            
+//                            echo "<pre>";
+//                            print_r($_POST);
+//                            echo "</pre>";
+                            
+  // send email for verification
+                           $message='
+                            <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                            "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                            <html xmlns="http://www.w3.org/1999/xhtml">
+                            <head></head>
+                            <body>
+                            <table>
+                            <tr><td colspan="2"><h2> Contact Form </h2></td></tr>
+                            <tr><td>Name : </td><td>'.$posted["name"].'</td></tr>
+                            <tr><td>Email : </td><td>'.$posted["email"].'</td></tr>
+                            <tr><td>Message : </td><td>'.$posted["msg"].'</td></tr>     
+                            </table>
+                            </body>
+                            </html>
+                            ';
+$data['emailMsg']=$message; 
+
+                        $this->load->library('email');
+                        $email_setting = array('mailtype'=>'html');
+                        $this->email->initialize($email_setting);
+                        // Give Probir da's email id here
+                        $this->email->from($posted["email"], 'Dealhotel');
+                        $this->email->to('sahani.bunty9@gmail.com');
+                        //$this->email->bcc('palash.sinharay2000@gmail.com');
+                        $this->email->subject('Dealhotel : Contact Form');
+                        $this->email->message($message);
+                        if($this->email->send())
+                        {
+                          //  echo "please check your email for verification link "; 
+                            $data['emailSentContactSuccess'] = 'Thanks for contacting us !!';
+                        }
+                       else {
+                               //echo "Message sending failed !"; 
+                               $data['emailSentContactFail'] = 'Message sending failed !';
+                            } 
+                        
+                   
+                             
+                         
+                       $this->_renderViewContact('contact',$data);  
+    }                                  					
+                    
+                    catch(Exception $err_obj)
+                    {
+                                    show_error($err_obj->getMessage());
+                    }
+        
+        
+                
+
+        
+    }
     
 }
 
