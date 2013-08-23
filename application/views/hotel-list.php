@@ -20,7 +20,7 @@
 									<li><a id="40" >3</a></li>
 									<li><a id="60" >4</a></li>
                                                                         <li><a id="80" >5</a></li>
-                                                                        <li><a id="100" >6</a></li>
+<!--                                                                        <li><a id="100" >6</a></li>
                                                                         <li><a id="120" >7</a></li>
                                                                         <li><a id="140" >8</a></li>
                                                                         <li><a id="180" >9</a></li>
@@ -28,7 +28,7 @@
                                                                         <li><a id="220" >11</a></li>
                                                                         <li><a id="240" >12</a></li>
                                                                         <li><a id="280" >13</a></li>
-                                                                        <li><a id="300" >14</a></li>
+                                                                        <li><a id="300" >14</a></li>-->
                                                                         
 <!--									<li class="next"><a href="#">Next</a></li>-->
 								</ol>
@@ -155,25 +155,22 @@
 								<li><label for="fcae"><input type="radio" id="fcae" name="fca"> Cruise</label></li>
 								<li><label for="fcaf"><input type="radio" id="fcaf" name="fca"> All</label></li>
 							</ul>-->
-							<h3><span>02.</span> Where?</h3>
-							<p class="select-c">
-                                                             <label for="fcb">Location</label>
-							<div class="ui-widget">	
-                                                           
-								<input id="fcb" name="fcb" />
-                                                        </div>
-							</p>
-							<h3><span>03.</span> When?</h3>
+							<h3><span>01.</span> Where?</h3>
+                                                        <p>
+                                                            <label for="fcb">Location</label>
+                                                            <input id="fcb" name="fcb" value="<?php echo $city;?>" required/>
+                                                        </p>					
+							<h3><span>02.</span> When?</h3>
 							<p class="date-a">
 								<span>
 									<label for="fcc">Check in</label>
-									<input type="text" id="fcc" name="fcc" required>
+									<input type="text" id="fcc" name="fcc" value="<?php echo $checkIn;?>" required>
 								</span>
 								<span>
 									<label for="fcd">Check Out</label>
-									<input type="text" id="fcd" name="fcd" required>
+									<input type="text" id="fcd" name="fcd" value="<?php echo $checkOut;?>" required>
 								</span>							</p>
-							<h3><span>04.</span> Who?</h3>
+<!--							<h3><span>04.</span> Who?</h3>
 							<p class="select-a">
 								<span>
 									<label for="fce">Rooms</label>
@@ -204,8 +201,8 @@
 										<option>04</option>
 										<option>05</option>
 									</select>
-								</span>							</p>
-							<p class="submit"><button type="submit">Proceed</button></p>
+								</span>							</p>-->
+							<p class="submit"><button type="submit" id="proceed">Proceed</button></p>
 						</fieldset>
 					</form>
 					<form id="fSearch" action="./" method="post" class="form-d">
@@ -215,14 +212,14 @@
 								<h3 class="active">Price Range</h3>
 								<div>
 									<div class="bar-a"></div>
-                                                                        <input id="pr_min" name="pr_min" value="800"/>
-                                                                        <input id="pr_max" name="pr_max" value="20000"/>
+                                                                        <input id="pr_min" name="pr_min" value="800" type="hidden"/>
+                                                                        <input id="pr_max" name="pr_max" value="20000" type="hidden"/>
 								</div>
 								<h3 class="active">Star Rating</h3>
 								<div>
 									<div class="bar-b"></div>
-                                                                        <input id="star_min" name="star_min" value="1"/>
-                                                                        <input id="star_max" name="star_max" value="3"/>
+                                                                        <input id="star_min" name="star_min" value="1" type="hidden"/>
+                                                                        <input id="star_max" name="star_max" value="3" type="hidden"/>
 								</div>
 <!--								<h3 class="active">Accommodations Type</h3>
 								<div>

@@ -17,7 +17,7 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
- function __construct()
+    function __construct()
     {
         parent::__construct();
  
@@ -39,38 +39,24 @@ class Welcome extends CI_Controller {
 		$this->load->model('Cms');
  
     }	
-    public function index()
-	{
-                $arrayInfo["city"] = 'kolkata';
-               
-                $arrayInfo['countryCode'] = 'US';
-                $arrayInfo['checkIn'] = "07/15/2013";
-                $arrayInfo['checkOut'] = "07/16/2013";
+    public function search($numberOfResult = 150)
+    {
+                $arrayInfo["city"] = trim($_POST['fea']);
+                //$arrayInfo["city"] = "New Delhi";
+                //$arrayInfo['countryCode'] = 'IN';
+                //$arrayInfo['countryCode'] = strstr(trim($_POST['fea']), ',',FALSE);
+                //$arrayInfo['countryCode'] = substr($arrayInfo['countryCode'],1);
+                $arrayInfo['checkIn'] = trim($_POST['fcc']);
+                //$arrayInfo['checkIn'] = "8/13/2013";
+                $arrayInfo['checkOut'] = trim($_POST['fcd']);
+                //$arrayInfo['checkOut'] = "8/15/2013";
                 //$arrayInfo['rooms'] = "room1=1,3&room2=1,5";
-                $arrayInfo['rooms'] = "room1=1,3";
-                $arrayInfo['numberOfResult'] = 10;
-
-                //$arrayInfo['propertyCategory'] = 1;
-                //$arrayInfo['amenities'] = 1;
-
-                $arrayInfo['maxStarRating']=5;
-                $arrayInfo['minStarRating']=3;
-
-                //$arrayInfo['minRate'] = 1000;
-                //$arrayInfo['maxRate'] = 10000;
-
-                $arrayInfo['sort'] = "QUALITY";
-            
-                //$this->load->library('ean');
-                $this->load->library('myclass');
-                
-             // $tt = $this->ean->HotelLists($arrayInfo);
-               
-               //echo "<pre>";print_r($tt); echo "</pre>";
+                //$arrayInfo['rooms'] = "room1=1,3";
+                //$arrayInfo['numberOfResult'] = $numberOfResult;
                 
 	    //  $this->load->view('welcome_message');
                 $this->load->view('common/header');
-                $this->load->view('hotel-list');
+                $this->load->view('hotel-list',$arrayInfo);
                 $this->load->view('common/footer');
 	}
 //        public function hotelDetails($hotelId,$customerSessionId) {
@@ -81,8 +67,13 @@ class Welcome extends CI_Controller {
 //                $this->load->view('hotel-details');
 //                $this->load->view('common/footer');
 //        }
-        
-         public function _renderView($page,$data) {
+    public function index() {
+      $this->load->view('index.php');  
+    }
+
+
+    public function _renderView($page,$data) 
+    {
                 
 /*                $data['featured_menu'] = $this->Cms->get_featured_menu();
                 $data['news'] = $this->Cms->get_news_list(1);
@@ -100,7 +91,8 @@ class Welcome extends CI_Controller {
                  $this->load->view('common/footer');
     }
 
-    public function _renderViewContact($page,$data) {
+    public function _renderViewContact($page,$data)
+    {
                 
                 //$data['featured_menu'] = $this->Cms->get_featured_menu();
                 //$data['news'] = $this->Cms->get_news_list(1);
@@ -116,7 +108,8 @@ class Welcome extends CI_Controller {
       //          $this->load->view('fe/common/footer.php',$data);
     }
     
-        public function _renderViewRegister($page,$data) {
+    public function _renderViewRegister($page,$data)
+    {
                 
                 //$data['featured_menu'] = $this->Cms->get_featured_menu();
                 //$data['news'] = $this->Cms->get_news_list(1);
@@ -150,6 +143,7 @@ class Welcome extends CI_Controller {
                                                     }
  	    
     }
+    
     public function newsletter()
     {
                 $email=$_POST['na'];
@@ -246,8 +240,8 @@ echo $message='
                 
     }
     
-      
-    public function verifyMe($id) {
+    public function verifyMe($id) 
+    {
         //echo "you r verified";
         
         $i_updateid=$this->Cms->update_register_status($id);

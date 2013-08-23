@@ -42,10 +42,11 @@ class AllApiCall extends CI_Controller{
 
 	return array("closest" => $closest, "shortest" => $shortest, "delkey" =>$delkey);
     }
-    
+   
     public function formInput($numberOfResult = 150) {
                 
-                $arrayInfo["city"] = strstr(trim($_POST['fcb']), ',', true);
+               
+        $arrayInfo["city"] = strstr(trim($_POST['fcb']), ',', true);
                 //$arrayInfo["city"] = "New Delhi";
                 //$arrayInfo['countryCode'] = 'IN';
                 $arrayInfo['countryCode'] = strstr(trim($_POST['fcb']), ',',FALSE);
@@ -196,6 +197,27 @@ class AllApiCall extends CI_Controller{
         }
         
         $finalResult = array_merge($hotelnameBooking,$hotelnameEAN);
+        $this->load->model('DhbAgodaDetails');
+        
+        foreach ($finalResult as $key => $value) {
+            if($value[0]['supplier'] == 'booking.com'){
+                //$data = $this->DhbAgodaDetails->getAgodaDetails($value[0]['hotelId']);
+                $data = $this->DhbAgodaDetails->getAgodaDetails($value[0]['hotelId']);
+        
+                if(empty($data) == FALSE){
+                   $finalResult[$key][3] = array('supplier' => 'agoda.com','lowRate' => $data[0]->rates_from,'url' => 'http://www.agoda.com'.$data[0]->url); 
+                }
+
+            }
+            
+            
+        }
+       // die();
+//        echo '<pre>';
+//        print_r($finalResult);
+//        echo '</pre>';
+//        
+//        die();
        
         $this->session->set_userdata(array('hotels' => $finalResult));
         //echo $commonMatch." common match hotels";
@@ -351,9 +373,10 @@ class AllApiCall extends CI_Controller{
                     
                     
                     
-                   $EAN = array_key_exists('1',$value) == TRUE ? '<hr><a href='.$value[1]['url'].'>'.$value[1]['supplier'].'</a> : &nbsp'.$value[0]['CurrencyCode'].'&nbsp'.$value[1]['lowRate'].'<hr>' : '&nbsp';
-                   //TODO
-                    //$AGODA = array_key_exists('1',$value) == TRUE ? '<hr><a href='.$value[1]['url'].'>'.$value[1]['supplier'].'</a> : &nbsp'.$value[0]['CurrencyCode'].'&nbsp'.$value[1]['lowRate'].'<hr>' : '&nbsp';
+                   $EAN = array_key_exists('1',$value) == TRUE ? '<hr><a href='.$value[1]['url'].'>'.$value[1]['supplier'].'</a> : &nbsp USD &nbsp'.$value[1]['lowRate'].'<hr>' : '&nbsp';
+                   
+                    //TODO
+                    $AGODA = array_key_exists('3',$value) == TRUE ? '<hr><a href='.$value[3]['url'].'>'.$value[3]['supplier'].'</a> : &nbsp USD &nbsp'.$value[3]['lowRate'].'<hr>' : '&nbsp';
                    
                    $str .="<article>
 							<header>
@@ -362,7 +385,7 @@ class AllApiCall extends CI_Controller{
 								<p><span class='rating-a ".$rateClass."'>".$value[0]['hotelRating']."</span>".$value[0]['address']." </p>
 							</header>
 							<p>".$desc."</p>".
-                                                            $EAN
+                                                            $EAN.$AGODA
 							."<p class='scheme-d'><span>".$value[0]['CurrencyCode']."</span>".round($value[0]['lowRate'])." <a href='".$value[0]['url']."'>Book</a></p>
 							<!--<footer>
 								<p>User Rating <span class='rating-b a'>0/5</span></p>
@@ -413,7 +436,7 @@ class AllApiCall extends CI_Controller{
         }
         
       } 
-      echo count($AllHotelsSorted);      //die();
+      //echo count($AllHotelsSorted);      //die();
 
         $this->session->unset_userdata('hotels_shorted');
         $this->session->set_userdata(array('hotels_shorted' => $AllHotelsSorted));

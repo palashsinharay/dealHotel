@@ -22,7 +22,7 @@
 	<body>
 		<div id="root">
 			<header id="top">
-				<h1><a href="./" accesskey="h"></a></h1>
+				<h1><a href="<?php echo base_url('welcome');?>" accesskey="h"></a></h1>
 				<nav id="skip">
 					<ul>
 						<li><a href="#nav" accesskey="n">Skip to navigation (n)</a></li>
@@ -33,18 +33,18 @@
 				<nav id="nav">
 					<ul class="primary">
 						 <li><a accesskey="1" href="<?php echo base_url();?>">Home</a> <em>(1)</em>
-							<ul>
+<!--							<ul>
 								<li><a href="hotel-list.html">Hotel List</a></li>
 								<li><a href="hotel-details.html">Hotel Details</a></li>
 								<li><a href="booking-view.html">Booking View</a></li>
 								<li><a href="booking-confirm.html">Booking Confirm</a></li>
-							</ul>
+							</ul>-->
 						</li>
 						<li><a accesskey="6" href="#">Blog</a> <em>(2)</em>
-							<ul>
+<!--							<ul>
 								<li><a href="blog.html">Blog Listings</a></li>
 								<li><a href="blog-article.html">Blog Single</a></li>
-							</ul>
+							</ul>-->
 						</li>
 
 						<li><a accesskey="7" href="<?php echo base_url('welcome/page/8');?>">Contact</a> <em>(3)</em></li>
@@ -69,7 +69,7 @@
 					</ul>
 					<p class="link-a"><a href="./">Login</a> <a href="./">Register</a></p>
 				</nav>
-				<form action="./" method="post" id="search">
+<!--				<form action="./" method="post" id="search">
 					<fieldset>
 						<legend>Search</legend>
 						<p>
@@ -78,14 +78,14 @@
 							<button type="submit">Submit</button>
 						</p>
 					</fieldset>
-				</form>
+				</form>-->
 				<p class="tel">Call us today <span>(84) - 868 868 888</span></p>
 			</header>    
-			<nav id="breadcrumbs">
+<!--			<nav id="breadcrumbs">
 				<ul>
 					<li><a href="./">Home</a></li>
 					<li><a href="./">Hotel</a></li>
 					<li><a href="./">Teades City</a></li>
 					<li>Search Result</li>
 				</ul>
-			</nav>                
+			</nav>                -->

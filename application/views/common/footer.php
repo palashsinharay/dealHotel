@@ -27,11 +27,12 @@
 					<form action="./" method="post">
 						<fieldset>
 							<legend>Newsletter</legend>
-							<p>Lorem emphasised est dolor sit ams...</p>
 							<p>
+                                                        <form action="" method="post" name="newsletter" >
 								<label for="na">Enter your email</label>
 								<input type="email" id="na" name="na" required>
-								<button type="submit" id="newsletter">Submit</button>
+								<button id="newsletter">Submit</button>
+                                                        </form>
 							</p>
 						</fieldset>
 					</form>
@@ -57,6 +58,7 @@
                 <script type="text/javascript">
                     
                    $(document).ready(function(){
+                       
 //                        request = $.ajax({
 //                            url: "<?php // echo base_url('index.php/ApiCall/hotelList')?>",
 //                        type: "post",
@@ -110,7 +112,7 @@ $("#bSearch").submit(function(event){
     // fire off the request to /form.php
     request = $.ajax({
         url: "<?php echo base_url('/AllApiCall/formInput')?>",
-        type: "post",
+        type: "POST",
         data: serializedData
     });
     
@@ -217,13 +219,14 @@ $("#fSearch").submit(function(event){
 var request2;
 $("#pagination a").click(function(){
   
+  var pagerid = $(this).attr('id');
    // let's enable the loader for the duration of the ajax request
     
     $('#mydiv').show();
    
    // fire off the request to /form.php
     request2 = $.ajax({
-        url: "<?php echo base_url('/AllApiCall/hotelPagination')?>"+"/"+$(this).attr('id'),
+        url: "<?php echo base_url('/AllApiCall/hotelPagination')?>"+"/"+pagerid,
         type: "post"
         
     });
@@ -233,8 +236,12 @@ $("#pagination a").click(function(){
         // log a message to the console
        // var hotel = $.parseJSON(response);
        $('.news-a').html(response);
-        console.log(response); //json encode response
-     
+        //console.log(response); //json encode response
+        $('#pagination li').each(function( index ) {
+            //console.log( index + ": " + $(this).text() );
+            $(this).removeClass('active');          
+        });           
+        $('#'+pagerid).parent().addClass('active');   
     });
 
     // callback handler that will be called on failure
@@ -400,7 +407,12 @@ $("#newsletter").click(function(){
     }); 
     
     
-    
+  //call search after page load  
+  if($('#fcb').val()!='' && $('#fcc').val()!='' && $('#fcd').val()!=''){
+    $('#bSearch').submit();
+  }else{
+    $('.news-a').html('No records available for this search critaria!');
+  }
     
  });
  
