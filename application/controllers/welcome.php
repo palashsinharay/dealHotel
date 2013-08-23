@@ -24,11 +24,15 @@ class Welcome extends CI_Controller {
         /* Standard Libraries of codeigniter are required */
         $this->load->database();
         $this->load->helper('url');
+        
         /* ------------------ */ 
         $config['upload_path'] = './assets/uploads/cv';
         $config['allowed_types'] = 'gif|jpg|png|pdf|doc|docx|txt';
         $this->load->library('upload', $config);
         $this->load->library('grocery_CRUD');
+        $this->load->library('encrypt');
+        $this->load->helper('captcha');
+        //$this->load->helper('Encrypt');
 		//$this->load->library('email');
 		//$config['protocol'] = 'sendmail';
 		//$config['charset'] = 'utf-8';
@@ -168,7 +172,9 @@ class Welcome extends CI_Controller {
 
     public function register()
     {
-             $this->_renderViewRegister('register',$data);
+     $this->load->library('recaptcha');
+     $data['recaptcha_html'] = $this->recaptcha->recaptcha_get_html();
+    $this->_renderViewRegister('registration',$data);
                 
     }
 
@@ -178,7 +184,10 @@ class Welcome extends CI_Controller {
            
                     try
                     {
-                            unset($_POST['action']);
+                         
+                        
+                        
+                        //unset($_POST['action']);
                             $posted=array();
                             $posted["usertype"]  	= trim($this->input->post("usertype"));
                             $posted["fname"]            = trim($this->input->post("fname"));
@@ -186,18 +195,26 @@ class Welcome extends CI_Controller {
                             $posted["address"]          = trim($this->input->post("address"));
                             $posted["mobileno"]         = trim($this->input->post("mobileno"));
                             $posted["email"]            = trim($this->input->post("email"));
-                            $posted["password"]            = trim($this->input->post("password"));
-//                            echo "hello";
-//                            echo "<pre>";
-//                            print_r($posted);
-//                            echo "</pre>";
-//                            die();
+                            $posted["password"]         = trim($this->input->post("password"));
                                                            
-                         $i_newid=$this->Cms->insert_register_data($posted);
-                         //echo $i_newid;
-                         if($i_newid!=0){
+//$this->recaptcha->recaptcha_check_answer($_SERVER['REMOTE_ADDR'],$this->input->post('recaptcha_challenge_field'),$this->input->post('recaptcha_response_field'));                           
+//if($this->recaptcha->getIsValid())
+//{
+//$i_newid=$this->Cms->insert_register_data($posted);
+//$data['user_details'] = $this->Cms->get_user_by_email($posted["email"]);
+//}
+//else {
+//echo "captcha failed";
+//$this->session->set_flashdata('error','incorrect captcha');    
+//}
+
+$i_newid=$this->Cms->insert_register_data($posted);
+$data['user_details'] = $this->Cms->get_user_by_email($posted["email"]);
+                            
+                            
+                         if($data['user_details']->id!=0){
   // send email for verification
-echo $message='
+ $message='
                             <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
                             <html xmlns="http://www.w3.org/1999/xhtml">
@@ -206,35 +223,39 @@ echo $message='
                             <table>
                             <tr><td><h2> DealHotel User Registration </h2></td></tr>
                             <tr><td>Click on the below link to veify your registration </td></tr>
-                            <tr><td><a href="'.  base_url('welcome/verifyMe/'.$i_newid).'">Verify Yourself</a></td></tr>
+                          
+<tr><td><a href="'. base_url('welcome/verifyMe/'. encode($data['user_details']->id),$url_safe=TRUE).'">Verify Yourself</a></td></tr>
                             </table>
                             </body>
                             </html>
                             ';
+$data['emailMsg']=$message; 
 
-//                        $this->load->library('email');
-//                        $email_setting = array('mailtype'=>'html');
-//                        $this->email->initialize($email_setting);
-//                        // Give Probir da's email id here
-//                        $this->email->from('sahani.bunty9@gmail.com', 'Dealhotel');
-//                        //$this->email->to($data['userDetail']->email);
-//                        $this->email->to($posted["email"]);
-//                        //Give Probir da's email id here
-//                        //$this->email->bcc('palash.sinharay2000@gmail.com');
-//                        $this->email->subject('Dealhotel :');
-//                        $this->email->message($message);
-//                        if($this->email->send())
-//                        {
-//                            echo "please check your email for verification link "; 
-//                        }
-//                       else {
-//                               echo "Message sending failed !"; 
-//                            } 
+                        $this->load->library('email');
+                        $email_setting = array('mailtype'=>'html');
+                        $this->email->initialize($email_setting);
+                        // Give Probir da's email id here
+                        $this->email->from('sahani.bunty9@gmail.com', 'Dealhotel');
+                        //$this->email->to($data['userDetail']->email);
+                        $this->email->to($posted["email"]);
+                        //Give Probir da's email id here
+                        //$this->email->bcc('palash.sinharay2000@gmail.com');
+                        $this->email->subject('Dealhotel :');
+                        $this->email->message($message);
+                        if($this->email->send())
+                        {
+                          //  echo "please check your email for verification link "; 
+                            $data['emailSentVerifySuccess'] = 'please check your email for verification link';
+                        }
+                       else {
+                               //echo "Message sending failed !"; 
+                               $data['emailSentVerifyFail'] = 'Message sending failed !';
+                            } 
                         
                    
                              
                          }
-                         
+                       $this->_renderViewRegister('registration',$data);  
                                                     					
                     }
                     catch(Exception $err_obj)
@@ -247,15 +268,25 @@ echo $message='
     }
     
       
-    public function verifyMe($id) {
+   // public function verifyMe($id) {
+     public function verifyMe($url) {
         //echo "you r verified";
-        
+        //echo $url;
+        //die();
+        $id=decode($url); 
+       
         $i_updateid=$this->Cms->update_register_status($id);
         $data['user_details'] = $this->Cms->get_user($id);
-//        echo "<pre>";
-//        print_r($data['user_details']);
-//        echo $data['user_details']->email;
-//        echo "</pre>";
+        $password=$data['user_details']->password;
+        $password_decoded=base64_decode($password);
+        
+       
+        
+//        $test=base64_encode('BUNTY');
+//        echo $test;
+//        echo "<br/>";
+//        $test1=base64_decode($test);
+//        echo $test1;
         
         
 //       if($i_updateid!=0)
@@ -266,7 +297,7 @@ echo $message='
              
  
  
-                         $message='
+                        $message='
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -275,6 +306,8 @@ echo $message='
 <table>
 <tr><td colspan="2"><h2> DealHotel User Registration </h2></td></tr>
 <tr><td colspan="2">Congradulation !!!! Your registration is successfully verified .</td></tr>
+<tr><td colspan="2">id :"'.$data['user_details']->email.'" </td></tr>
+<tr><td colspan="2">password :"'.$password_decoded.'" </td></tr>
 </table>
 </body>
 </html>
@@ -292,7 +325,16 @@ echo $message='
                         //$this->email->bcc('palash.sinharay2000@gmail.com');
                         $this->email->subject('Dealhotel :');
                         $this->email->message($message);
-                        $this->email->send();
+                       // $this->email->send();
+                         if($this->email->send())
+                        {
+                            echo "please check your email for login credential ";
+                            redirect(base_url());
+                            
+                        }
+                       else {
+                               echo "Message sending failed !"; 
+                            } 
                            
                        }
         

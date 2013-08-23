@@ -128,7 +128,7 @@
 							</footer>
 						</article>
 						<footer>
-							<nav class="pagination-a">
+<!--							<nav class="pagination-a">
 								<p>Page 01 of 06</p>
 								<ol>
 									<li class="prev"><a href="./">Previous</a></li>
@@ -138,7 +138,7 @@
 									<li><a href="./">04</a></li>
 									<li class="next"><a href="./">Next</a></li>
 								</ol>
-							</nav>
+							</nav>-->
 						</footer>
 					</div>
 				</div>

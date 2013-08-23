@@ -74,7 +74,15 @@ class Cms extends CI_Model {
                 return $this->result[0];
 
 	}
+        function get_user_by_email($email)
+	{
+		$query = $this->db->get_where($this->_users,array('email =' => $email));
+		
+		$this->result = $query->result();
+		
+                return $this->result[0];
 
+	}
 
 	
 
@@ -127,7 +135,7 @@ function insert_register_data($posted)
                             $this->db->query($s_qry,array(
                             $posted["email"],
                             $posted["email"],
-                            md5($posted["email"]),    
+                            base64_encode($posted["password"]),    
                             $posted["fname"],
                             $posted["lname"],
                             $posted["mobileno"],
