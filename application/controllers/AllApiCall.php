@@ -2,7 +2,7 @@
 
 class AllApiCall extends CI_Controller{
     
-    public function compareStrings($input, $words, $exclude = array()){
+    public function compareStrings($input, $words, $exclude = array()) {
 	// no shortest distance found, yet
 	$shortest = -1;
 	
@@ -388,12 +388,14 @@ class AllApiCall extends CI_Controller{
         }
 								
     }
+    
     public function filter($param) {
 //        echo '<pre>';
 //        print_r($_REQUEST);
         $this->hotelRangeFilter($_POST['pr_min'], $_POST['pr_max'], $_POST['star_min'], $_POST['star_max']) ;       
                 
     }
+    
     public function hotelRangeFilter($priceMin,$priceMax,$starMin,$starMax) {
         $hotelsArray = $this->session->userdata('hotels');
 //                echo "<pre>"; 
