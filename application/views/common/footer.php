@@ -411,7 +411,7 @@ $("#newsletter").click(function(){
     
     
   //call search after page load  
-  if($('#fcb').val()!='' && $('#fcc').val()!='' && $('#fcd').val()!=''){
+  if($('#fcb').val()!=''){
     $('#bSearch').submit();
   }else{
     $('.news-a').html('No records available for this search critaria!');

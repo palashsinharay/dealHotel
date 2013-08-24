@@ -104,6 +104,15 @@ class Booking {
 			
         }
         
+        function HotelDetailsDateless($arrayInfo) {
+            $str='https://'.$this->userId.':'.$this->password.'@distribution-xml.booking.com/json/bookings.getHotels?'.
+                    '&languagecodes=en-us'.
+                    '&city_ids='.$city.
+                    '&countrycodes='.$countryCode.
+                    '&rows='.$numberOfResult;
+            return $this->apiCall($str);
+        }
+        
         /*
          * funtion to get the list of hotels
          */

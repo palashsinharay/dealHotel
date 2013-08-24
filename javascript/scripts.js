@@ -317,3 +317,22 @@ $(function() {
     }
     });
 });
+
+$(document).ready(function(){
+	$("#searchBoxContainer_NoDates").click(function() {
+		if ($('#searchBoxContainer_NoDates').is(":checked"))
+		{
+		  $("#fcc").css("background-color","#CCCCCC");
+		  $("#fcd").css("background-color","#CCCCCC");
+		  $("#fcc").attr("disabled", "disabled");
+		  $("#fcd").attr("disabled", "disabled");
+		}
+		else
+		{
+		   $("#fcc").css("background-color","none");
+		   $("#fcd").css("background-color","none");
+		   $("#fcc").removeAttr("disabled", "disabled");
+		   $("#fcd").removeAttr("disabled", "disabled");
+		}
+	});
+});

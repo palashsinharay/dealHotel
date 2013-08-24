@@ -1,5 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+$config['agodaAID'] = 1598666 ;
+$config['bookingAID'] = 347294;
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
