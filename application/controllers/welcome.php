@@ -41,6 +41,7 @@ class Welcome extends CI_Controller {
 		//$this->email->initialize($this->config);
 
 		$this->load->model('Cms');
+                $this->load->model('Hotels');
  
     }	
     public function search($numberOfResult = 150)
@@ -72,7 +73,21 @@ class Welcome extends CI_Controller {
 //                $this->load->view('common/footer');
 //        }
     public function index() {
-      $this->load->view('index.php');  
+      
+    $data['recently_booked_hotel_id'] = $this->Hotels->get_ids_recently_booked();
+//    echo "<pre>"; 
+//    print_r($data['recently_booked_hotel_id']);
+//    echo "</pre>";                
+//    die();
+//    foreach ( $data['recently_booked_hotel_id'] as $value){
+//        $data['recently_booked_hotel_details']=$this->Hotels->get_hoteldetails_recently_booked($value->HotelID);
+//    }     
+//    echo "<pre>"; 
+//    print_r($data['recently_booked_hotel_details']);
+//    echo "</pre>";                
+//    die();   
+    
+    $this->load->view('index.php',$data);  
     }
 
 

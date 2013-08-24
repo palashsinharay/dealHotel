@@ -1,3 +1,29 @@
+<?php 
+echo "<pre>";
+print_r($recently_booked_hotel_id);
+echo "</pre>";
+
+
+
+//
+//foreach ($recently_booked_hotel_id as $value){
+//    //echo "test1";
+//    echo "</br>";
+//    echo $value[0]->id;
+//    echo "</br>";
+//    echo $value[0]->name;
+//}
+//die();
+//foreach ($recently_booked_hotel_id as $key => $value){
+//    //echo "test1";
+//    echo "</br>";
+//    echo $recently_booked_hotel_id[$key][0]->hotel_url = $value[0]->hotel_url.'gandu';
+//    
+//}
+//echo "<pre>";
+//print_r($recently_booked_hotel_id);
+//echo "</pre>";
+?>
 <!doctype html>
 <html lang="en" class="a">
 	<head>
@@ -368,34 +394,66 @@
                     <header class="module-a" style="background-color:#0099FF; box-shadow:none; padding: 7px 0 0 0; margin-bottom:10px;">
                         <label class="figure_heading" style="color:#FFFFFF;">Recently Booked Hotel in India</label>
 					</header>
-                    
-<!--                   <div class="news-a">
-                    <article>
-					  <header style="width:300px;">
-								<h2><a href="#">Hanoi Sheraton Hotel</a></h2>
-								<figure><img src="temp/128x102(2).gif"  alt="Placeholder" width="128" height="102"></figure>
-								<p style="margin-left:10px;"><span class="rating-a c">0/5</span></p>
-                                <p style="font-size:14px;">Seraton Hotel - Hanoi, Vietnam </p>
-					  </header>
-                    </article>
-                    </div>
--->
+<?php
+
+//foreach ($recently_booked_hotel_id as $value){
+//    //echo "test1";
+//    echo "</br>";
+//    echo $value[0]->id;
+//    echo "</br>";
+//    echo $value[0]->name;
+//}
+
+?>
+                
+            <?php 
+            if($recently_booked_hotel_id!=NUll):
+            foreach ($recently_booked_hotel_id as $value): 
+                
+switch ($value[0]->class) {
+                        case 0:
+                            $rateClass = 'a';
+                            break;
+                        case 1:
+                            $rateClass = 'b';
+                            break;
+                         case 2:
+                            $rateClass = 'c';
+                            break;
+                         case 3:
+                            $rateClass = 'd';
+                            break;
+                         case 4:
+                            $rateClass = 'e';
+                            break;
+                         case 5:
+                            $rateClass = 'f';
+                            break;
+                        default:
+                             $rateClass = 'a';
+                            break;
+                    }                
+                ?>                          
                  <div class="recently_panel">
-                     <div class="recently_panel_left"><img src="<?php echo base_url('temp/200-x130.gif')?>"></div>
+                 <div class="recently_panel_left"><img src="<?php echo $value[0]->photo_url?>" style="max-width:200px; max-height:100px;"></div>
                  
                  
                  <div class="recently_panel_right">
-                 Taj Hansoi Hotel
-                 <p>Seraton Hotel - hanoi, Vietnam</p>
-                 <p><span class="rating-a d">3/5</span></p>
+                 <?php echo $value[0]->name; ?>
+                 <p><?php echo $value[0]->name.'-'.$value[0]->city_preferred; ?></p>
+                 <p><span class="rating-a <?php echo " ".$rateClass;?>"><?php echo $value[0]->class;?>/5</span></p>
 
                  
                  </div>
                  </div>
                  <div class="clear"></div>
                  <div class="recently_panel_border"></div>
+                 <?php 
+                 endforeach;
+                 endif;
+                 ?>   
                  
-                 <div class="recently_panel">
+<!--                 <div class="recently_panel">
                  <div class="recently_panel_left"><img src="<?php echo base_url('temp/200-x130-(2).gif')?>"></div>
                  <div class="recently_panel_right">
                   Taj Hansoi Hotel
@@ -403,7 +461,7 @@
                  <p><span class="rating-a d">3/5</span></p>
                  
                  </div>
-                 </div>
+                 </div>-->
                  </figure>
                     
                     
@@ -423,7 +481,7 @@
                     </div>
                     
                     </figure>
-				    </div>
+          </div>
                 
                 
                 
