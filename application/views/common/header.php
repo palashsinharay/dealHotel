@@ -67,7 +67,7 @@
 							</ul>
 						</li>
 					</ul>
-					<p class="link-a"><a href="./">Login</a> <a href="./">Register</a></p>
+					<p class="link-a"><a href="#">Login</a> <a href="<?php echo base_url('welcome/register');?>">Register</a></p>
 				</nav>
 <!--				<form action="./" method="post" id="search">
 					<fieldset>

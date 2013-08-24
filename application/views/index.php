@@ -1,7 +1,7 @@
 <?php 
-echo "<pre>";
-print_r($recently_booked_hotel_id);
-echo "</pre>";
+//echo "<pre>";
+//print_r($recently_booked_hotel_id);
+//echo "</pre>";
 
 
 
@@ -100,7 +100,7 @@ echo "</pre>";
 							</ul>
 						</li>
 					</ul>
-					<p class="link-a"><a href="#">Login</a> <a href="#">Register</a></p>
+					<p class="link-a"><a href="#">Login</a> <a href="<?php echo base_url('welcome/register');?>">Register</a></p>
 				</nav>
 <!--				<form action="#" method="post" id="search">
 					<fieldset>
@@ -392,7 +392,7 @@ echo "</pre>";
   
 				  <figure class="image-d" style="height:335px; border:4px solid #0099FF; border-radius:8px">
                     <header class="module-a" style="background-color:#0099FF; box-shadow:none; padding: 7px 0 0 0; margin-bottom:10px;">
-                        <label class="figure_heading" style="color:#FFFFFF;">Recently Booked Hotel in India</label>
+                        <label class="figure_heading" style="color:#FFFFFF;">Recently Booked Hotel in <?php echo  $_SESSION['CountryName']; ?></label>
 					</header>
 <?php
 
@@ -407,7 +407,7 @@ echo "</pre>";
 ?>
                 
             <?php 
-            if($recently_booked_hotel_id!=NUll):
+            if($recently_booked_hotel_id!=NUll){
             foreach ($recently_booked_hotel_id as $value): 
                 
 switch ($value[0]->class) {
@@ -435,11 +435,11 @@ switch ($value[0]->class) {
                     }                
                 ?>                          
                  <div class="recently_panel">
-                 <div class="recently_panel_left"><img src="<?php echo $value[0]->photo_url?>" style="max-width:200px; max-height:100px;"></div>
+                     <div class="recently_panel_left"><a href="<?php  echo $value[0]->hotel_url.'?aid='.$this->config->item('bookingAID')?>"><img src="<?php echo $value[0]->photo_url?>" style="max-width:200px; max-height:100px;"></a></div>
                  
                  
                  <div class="recently_panel_right">
-                 <?php echo $value[0]->name; ?>
+                 <a href="<?php  echo $value[0]->hotel_url.'?aid='.$this->config->item('bookingAID')?>"><?php echo $value[0]->name; ?></a>
                  <p><?php echo $value[0]->name.'-'.$value[0]->city_preferred; ?></p>
                  <p><span class="rating-a <?php echo " ".$rateClass;?>"><?php echo $value[0]->class;?>/5</span></p>
 
@@ -450,7 +450,10 @@ switch ($value[0]->class) {
                  <div class="recently_panel_border"></div>
                  <?php 
                  endforeach;
-                 endif;
+                 }
+ else {
+     echo "<center><h3 style=\"color:#1A90E0\"> No hotels found in $_SESSION[CountryName] </h3></center>";
+ }
                  ?>   
                  
 <!--                 <div class="recently_panel">
@@ -470,16 +473,18 @@ switch ($value[0]->class) {
                     <header class="module-a" style="background-color:#0099FF; box-shadow:none;padding: 7px 0 0 0;margin:0px;">
 						<label class="figure_heading_right" style="color:#FFFFFF;">Top Destination</label>
 					</header>
+                    <?php  if($top_destination != NUll): ?>
+
                     <div class="top_dest_panel">
-                    <div class="top_dest_panel_left"><img src="<?php echo base_url('temp/220-x-120.gif')?>" style="margin-bottom:3px">Paris</div>
-                    <div class="top_dest_panel_right"><img src="<?php echo base_url('temp/220-x-120(2).gif')?>" style="margin-bottom:3px">Viena</div>
+                    <div class="top_dest_panel_left"><img src="<?php echo base_url($top_destination[0]->Image)?>" style="margin-bottom:3px"><a href="<?php echo $top_destination[1]->deeplink.'?aid='.$this->config->item('bookingAID'); ?>"><?php echo $top_destination[0]->full_name; ?></a></div>
+                    <div class="top_dest_panel_right"><img src="<?php echo base_url($top_destination[1]->Image)?>" style="margin-bottom:3px"><a href="<?php echo $top_destination[1]->deeplink.'?aid='.$this->config->item('bookingAID'); ?>"><?php echo $top_destination[1]->full_name; ?></a></div>
                     </div>
                     
                     <div class="top_dest_panel">
-                    <div class="top_dest_panel_left"><img src="<?php echo base_url('temp/220-x-120.gif')?>" style="margin-bottom:3px">Paris</div>
-                    <div class="top_dest_panel_right"><img src="<?php echo base_url('temp/220-x-120(2).gif')?>" style="margin-bottom:3px">Viena</div>
+                    <div class="top_dest_panel_left"><img src="<?php echo base_url($top_destination[2]->Image)?>" style="margin-bottom:3px"><a href="<?php echo $top_destination[2]->deeplink.'?aid='.$this->config->item('bookingAID'); ?>"><?php echo $top_destination[2]->full_name; ?></a></div>
+                    <div class="top_dest_panel_right"><img src="<?php echo base_url($top_destination[3]->Image)?>" style="margin-bottom:3px"><a href="<?php echo $top_destination[3]->deeplink.'?aid='.$this->config->item('bookingAID'); ?>"><?php echo $top_destination[3]->full_name; ?></a></div>
                     </div>
-                    
+                    <?php  endif; ?>
                     </figure>
           </div>
                 
@@ -495,7 +500,7 @@ switch ($value[0]->class) {
 					<figure class="image-a"><a href="./"><img src="<?php echo base_url('temp/465x201.gif')?>" alt="Placeholder" width="465" height="201"> <span class="icon-a">-%25</span></a> <figcaption>Paris Eurostar Breaks <span>Curabitur fringilla mauris interdum nec magna</span> <span>From $350</span></figcaption></figure>
 					<figure class="image-d"><a href="./"><img src="<?php echo base_url('temp/465x201(1).gif')?>" alt="Placeholder" width="465" height="201"> <span class="icon-b">Gift</span></a> <figcaption><span>Travel to hongkong</span> urabitur fringilla mauris interdum nec magna tur fringilla mauris interdum nec magna tur fringilla mauris interdum log nec magna</figcaption></figure>
 				</div>
-				<h2 class="header-a">Popular deal</h2>
+<!--				<h2 class="header-a">Popular deal</h2>
 			  <div class="news-d">
 					
 					
@@ -536,7 +541,7 @@ switch ($value[0]->class) {
 							<p>Sheraton Hotel - Hanoi, Vietnam</p>
 						</footer>
 					</article>
-				</div>
+				</div>-->
 			</section>
             
 			<footer id="footer">
@@ -565,14 +570,18 @@ switch ($value[0]->class) {
 							<li><a href="./">Order history</a></li>
 						</ul>
 					</div>
-					<form action="./" method="post">
+						<form action="./" method="post">
 						<fieldset>
 							<legend>Newsletter</legend>
-							<p>Lorem emphasised est dolor sit ams...</p>
-							<p>
+
+							
+<p class="newsletter-message" style="display: none; color:#FF0000; font-size:14px; font-weight:300; "></p>							
+                                                        <p>
+
 								<label for="na">Enter your email</label>
 								<input type="email" id="na" name="na" required>
-								<button type="submit">Submit</button>
+								<button id="newsletter">Submit</button>
+                                                        </form>
 							</p>
 						</fieldset>
 					</form>
@@ -610,6 +619,63 @@ response( data );
 function validation(){
     if($('#fea').val() != ''){
         alert ('hi');
+    }
+}
+
+
+$("#newsletter").click(function(){
+    
+ var form_data = {
+                na 	: $('#na').val(),                            
+                ajax 	: '1'
+                };
+
+                                                //alert($('#cap_div').text());	
+                                                if($('#na').val()=='')
+                                                        {
+                                                                       // alert("Enter Email ID");
+                                                                        msg="Please Provide your email address !";
+                                                                        $('.newsletter-message').html(msg);
+                                                                        $('.newsletter-message').fadeIn(500).show();
+                                                                        return false;
+
+                                                        }
+                                                else if(!validateEmail($('#na').val()))        
+                                                        {
+                                                        msg="Please provide a valid email address !";
+                                                       // alert("Please provide a valid email address !");
+                                                        $('.newsletter-message').html(msg);
+                                                        $('.newsletter-message').fadeIn(500).show();
+                                                        return false;
+                                                        }
+                                                        else
+                                                        {
+                                                           // alert("chodu");
+                                                            $.ajax({
+                                                            url: "<?php echo site_url('welcome/newsletter'); ?>",
+                                                            //url: "main/email_send",
+                                                            type: 'POST',
+                                                            async : false,
+                                                            data: form_data,
+                                                            success: function(msg) {
+                                                            //alert(msg);
+
+                                                            $('.newsletter-message').html(msg);
+                                                            $('.newsletter-message').fadeIn(500).show();
+                                                            
+                                                            }
+                                                            });
+                                                         }
+    return false;   
+    
+    });
+
+function validateEmail(user_email){
+   var filter = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{1,4}$/;
+    if(filter.test(user_email)){
+        return true;
+    }else{
+        return false;
     }
 }
     </script>

@@ -75,6 +75,7 @@ class Welcome extends CI_Controller {
     public function index() {
       
     $data['recently_booked_hotel_id'] = $this->Hotels->get_ids_recently_booked();
+    $data['top_destination'] = $this->Hotels->get_top_destination(2);
 //    echo "<pre>"; 
 //    print_r($data['recently_booked_hotel_id']);
 //    echo "</pre>";                

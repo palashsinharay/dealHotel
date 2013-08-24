@@ -23,7 +23,7 @@ class Hotels extends CI_Model {
 	//function for getting gallery page content
 	function get_ids_recently_booked()
 	{
-		$SqlInfo="SELECT dbd.HotelID FROM  dealbookingdetails dbd, countries_ip cip WHERE ('0017170432' BETWEEN cip.ip_from AND cip.ip_to) AND cip.country_code = dbd.countryCode  ORDER BY dbd.BTime DESC";
+		$SqlInfo="SELECT dbd.HotelID, cip.country_name FROM  dealbookingdetails dbd, countries_ip cip WHERE ('".str_replace(".", "", getenv("REMOTE_ADDR")) ."' BETWEEN cip.ip_from AND cip.ip_to) AND cip.country_code = dbd.countryCode  ORDER BY dbd.BTime DESC";
                 $query = $this->db->query($SqlInfo);
 		//echo $this->db->last_query();
 		//die();
@@ -33,9 +33,12 @@ class Hotels extends CI_Model {
 //		echo "</pre>";
                 //return $this->result;
                 
+               
+                
             foreach ($this->result as $value)
                 {
-                $data['recently_booked_hotel_details'][]=$this->get_hoteldetails_recently_booked($value->HotelID);
+                    $_SESSION['CountryName'] = $value->country_name;
+                    $data['recently_booked_hotel_details'][]=$this->get_hoteldetails_recently_booked($value->HotelID);
                 }
                 $this->result=$data['recently_booked_hotel_details'];
 //                echo "<pre>";
@@ -60,7 +63,12 @@ class Hotels extends CI_Model {
 
 	}
        
-        
+        function get_top_destination($country)
+	{
+            $query = $this->db->query('SELECT * FROM dhbtopdestination WHERE Status = \'1\' LIMIT 4');
+            $this->result = $query->result();
+            return $this->result;
+	}        
 
 
     
