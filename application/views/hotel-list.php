@@ -16,10 +16,10 @@
 								<ol id="pagination">
 <!--									<li class="prev"><a href="#">Previous</a></li>-->
 									<li class="active"><a id="1">01</a></li>
-									<li><a id="20" >2</a></li>
-									<li><a id="40" >3</a></li>
-									<li><a id="60" >4</a></li>
-                                                                        <li><a id="80" >5</a></li>
+									<li><a id="20" >02</a></li>
+									<li><a id="40" >03</a></li>
+									<li><a id="60" >04</a></li>
+                                                                        <li><a id="80" >05</a></li>
 <!--                                                                        <li><a id="100" >6</a></li>
                                                                         <li><a id="120" >7</a></li>
                                                                         <li><a id="140" >8</a></li>
@@ -202,6 +202,10 @@
 										<option>05</option>
 									</select>
 								</span>							</p>-->
+<!--                                                            <p>       
+                                                                <input type="checkbox" id="searchBoxContainer_NoDates" name="searchBoxContainer_NoDates" value="searchBoxContainer_NoDates"><label>I don't have specifick dates yet</label>
+                                                            </p>-->
+					
 							<p class="submit"><button type="submit" id="proceed">Proceed</button></p>
 						</fieldset>
 					</form>

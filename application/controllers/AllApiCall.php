@@ -46,7 +46,7 @@ class AllApiCall extends CI_Controller{
     public function formInput($numberOfResult = 150) {
                 
                
-        $arrayInfo["city"] = strstr(trim($_POST['fcb']), ',', true);
+                $arrayInfo["city"] = strstr(trim($_POST['fcb']), ',', true);
                 //$arrayInfo["city"] = "New Delhi";
                 //$arrayInfo['countryCode'] = 'IN';
                 $arrayInfo['countryCode'] = strstr(trim($_POST['fcb']), ',',FALSE);
@@ -65,32 +65,46 @@ class AllApiCall extends CI_Controller{
     public function AllsupplierHotelList($arrayInfo) {
                 $this->session->unset_userdata('hotels');
                 
-                
+            if($arrayInfo['checkIn'] != '' && $arrayInfo['checkOut'] != ''){
+            $result['EAN'] = $this->ean->HotelLists($arrayInfo);
+          
+            }else{
+               //echo 'duuuuu';
+                $result['EAN'] = $this->ean->HotelListsDateless($arrayInfo);
+                //print_r($result['EAN']);                
+            }
+            if(array_key_exists('EanWsError', $result['EAN']['HotelListResponse'])){
+            if($result['EAN']['HotelListResponse']['EanWsError']['verboseMessage'] == 'Multiple locations found, please refine your search criteria.')
+                {
+                $arrayInfo['cityId'] = $result['EAN']['HotelListResponse']['LocationInfos']['LocationInfo'][0]['destinationId'];
                 $result['EAN'] = $this->ean->HotelLists($arrayInfo);
-               if(array_key_exists('EanWsError', $result['EAN']['HotelListResponse'])){
-                if($result['EAN']['HotelListResponse']['EanWsError']['verboseMessage'] == 'Multiple locations found, please refine your search criteria.')
-                    {
-                    $arrayInfo['cityId'] = $result['EAN']['HotelListResponse']['LocationInfos']['LocationInfo'][0]['destinationId'];
-                    $result['EAN'] = $this->ean->HotelLists($arrayInfo);
-                    }
-               }
+                }
+           }
 //                echo '<pre>';
 //                print_r($result);
 //                echo '</pre>';
 //                die();
                 
                
-               $this->load->model('Dhbcity');
+                $this->load->model('Dhbcity');
                 $city = $this->Dhbcity->getUfi($arrayInfo["city"],$arrayInfo['countryCode']);
                 $arrayInfo['city'] = $city[0]->ufi;
                 
-                $hotelAvailable = $this->booking->HotelAvailability($arrayInfo);
-        
-        foreach ($hotelAvailable as $key => $value) {
-            $hotelids[] = $value['hotel_id'];
-        }
-        $hotelidsstr = implode(',', $hotelids);
-        $result['Booking'] = $this->booking->HotelDetails($hotelidsstr);
+        if($arrayInfo['checkIn'] != '' && $arrayInfo['checkOut'] != '') {
+            $hotelAvailable = $this->booking->HotelAvailability($arrayInfo);
+
+            foreach ($hotelAvailable as $key => $value) {
+                $hotelids[] = $value['hotel_id'];
+            }
+            $hotelidsstr = implode(',', $hotelids);
+            $result['Booking'] = $this->booking->HotelDetails($hotelidsstr);
+
+         }else{
+            //echo 'daaa';
+             $result['Booking'] = $this->booking->HotelDetailsDateless($arrayInfo);
+             //print_r($result['EAN']); 
+             //die();
+         }
 //                echo "<pre>";
 //                print_r($result);
 //                echo "</pre>";
@@ -373,10 +387,10 @@ class AllApiCall extends CI_Controller{
                     
                     
                     
-                   $EAN = array_key_exists('1',$value) == TRUE ? '<hr><a href='.$value[1]['url'].'>'.$value[1]['supplier'].'</a> : &nbsp USD &nbsp'.$value[1]['lowRate'].'<hr>' : '&nbsp';
+                   $EAN = array_key_exists('1',$value) == TRUE ? '<hr><a href='.$value[1]['url'].'>'.$value[1]['supplier'].'</a> : &nbsp '.$value[0]['CurrencyCode'].' &nbsp'.ConvertCurrency($value[1]['lowRate'],'USD',$value[0]['CurrencyCode']).'<hr>' : '&nbsp';
                    
                     //TODO
-                    $AGODA = array_key_exists('3',$value) == TRUE ? '<hr><a href='.$value[3]['url'].'>'.$value[3]['supplier'].'</a> : &nbsp USD &nbsp'.$value[3]['lowRate'].'<hr>' : '&nbsp';
+                    $AGODA = array_key_exists('3',$value) == TRUE ? '<hr><a href='.$value[3]['url'].'>'.$value[3]['supplier'].'</a> : &nbsp '.$value[0]['CurrencyCode'].' &nbsp'.ConvertCurrency($value[3]['lowRate'],'USD',$value[0]['CurrencyCode']).'<hr>' : '&nbsp';
                    
                    $str .="<article>
 							<header>

@@ -319,10 +319,10 @@
 								<input type="text" id="fcd" name="fcd" required>
 							</span>
 						</p>
-                         <p style="width:400px;">       
-                                <input type="checkbox" name="searchBoxContainer_NoDates" value="searchBoxContainer_NoDates"><label>I don't have specifick dates yet</label>
+<!--                                <p style="width:400px;">       
+                                <input type="checkbox" id="searchBoxContainer_NoDates" name="searchBoxContainer_NoDates" value="searchBoxContainer_NoDates"><label>I don't have specifick dates yet</label>
                			</p>
-					
+					-->
 <!--                        <p class="select-c">
                             <label>Guests</label>
                                 <span>

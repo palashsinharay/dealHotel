@@ -67,8 +67,8 @@ $autoload['libraries'] = array('database', 'session', 'xmlrpc','ean','booking');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url');
-$autoload['helper'] = array('MY_Encrypt');
+$autoload['helper'] = array('url','MY_Encrypt','Currency_Converter');
+//$autoload['helper'] = array('MY_Encrypt');
 //$autoload['helper'] = array('captcha');
 
 

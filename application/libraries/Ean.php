@@ -92,6 +92,54 @@ class Ean {
         /*
          * funtion to get the list of hotels
          */
+	function HotelListsDateless($arrayInfo){
+            
+            $city = $arrayInfo['city'];
+            $cityId = array_key_exists('cityId', $arrayInfo) ? $arrayInfo['cityId'] : '' ;
+            $countryCode = $arrayInfo['countryCode'];
+            $rooms = $arrayInfo['rooms'];
+            $numberOfResult = array_key_exists('numberOfResult', $arrayInfo) ? $arrayInfo['numberOfResult'] :10;
+            
+            /*filtering
+             * please check the Filtering Methods section for compleate list http://developer.ean.com/docs/read/hotel_list
+             */
+            $propertyCategory = array_key_exists('propertyCategory', $arrayInfo) ? $arrayInfo['propertyCategory'] : '' ;
+            $amenities = array_key_exists('amenities', $arrayInfo) ? $arrayInfo['amenities'] : '' ;
+            $maxStarRating = array_key_exists('maxStarRating', $arrayInfo) ? $arrayInfo['maxStarRating'] : '' ;
+            $minStarRating = array_key_exists('minStarRating', $arrayInfo) ? $arrayInfo['minStarRating'] : '' ;
+            $minRate = array_key_exists('minRate', $arrayInfo) ? $arrayInfo['minRate'] : '' ;
+            $maxRate = array_key_exists('maxRate', $arrayInfo) ? $arrayInfo['maxRate'] : '' ;
+            
+            /*
+             * sorting
+             * please check the Sorting Options section for compleate list http://developer.ean.com/docs/read/hotel_list
+             * 
+             */
+            $sort = $arrayInfo['sort'] = array_key_exists('sort', $arrayInfo) ? $arrayInfo['sort'] : 'NO_SORT' ;
+            
+           $str= 'http://api.ean.com/ean-services/rs/hotel/v3/list?minorRev=21&cid='.$this->cid.
+                    '&apiKey='.$this->apiKey.'&customerSessionId&customerUserAgent&customerIpAddress&locale='.$this->local.
+                    '&currencyCode='.$this->currency.
+                    '&city='.$city.
+                    '&destinationId='.$cityId.
+                    '&countryCode='.$countryCode.
+                    '&propertyCategory='.$propertyCategory.
+                    '&amenities='.$amenities.
+                    '&maxStarRating='.$maxStarRating.
+                    '&minStarRating='.$minStarRating.
+                    '&minRate='.$minRate.
+                    '&maxRate'.$maxRate.
+                    '&sort='.$sort.
+                    '&supplierCacheTolerance=MED&arrivalDate='.$checkIn.
+                    '&departureDate='.$checkOut.'&'.$rooms.'&numberOfResults='.$numberOfResult.
+                    '&supplierCacheTolerance=MED_ENHANCED';
+            
+            return $this->apiCall($str);
+	}
+        
+        /*
+         * funtion to get the list of hotels
+         */
 	function HotelLists($arrayInfo){
             
             $city = $arrayInfo['city'];
