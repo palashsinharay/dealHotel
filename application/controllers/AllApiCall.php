@@ -136,7 +136,7 @@ class AllApiCall extends CI_Controller{
 //                echo "<pre>";
 //                print_r($hotelnameEAN);
 //                echo "</pre>";
-                
+               
         foreach ($result['Booking'] as $value) {
                   $hotelnameBooking[] = array(
                       'supplier' => 'booking.com',
@@ -152,7 +152,7 @@ class AllApiCall extends CI_Controller{
                       'longitude' =>$value['location']['longitude'],
                       //'thumbNailUrl' =>$value['thumbNailUrl'],
                       //'shortDescription'=>$value['shortDescription'],
-                      'url' => $value['url'],
+                      'url' => $value['url'].'?aid='.$this->config->item('bookingAID'),
                       'highRate' =>$value['maxrate'],
                       'lowRate' =>$value['minrate']);
                   
@@ -205,7 +205,7 @@ class AllApiCall extends CI_Controller{
                 $data = $this->DhbAgodaDetails->getAgodaDetails($value[0]['hotelId']);
         
                 if(empty($data) == FALSE){
-                   $finalResult[$key][3] = array('supplier' => 'agoda.com','lowRate' => $data[0]->rates_from,'url' => 'http://www.agoda.com'.$data[0]->url); 
+                   $finalResult[$key][3] = array('supplier' => 'agoda.com','lowRate' => $data[0]->rates_from,'url' => 'http://www.agoda.com'.$data[0]->url.'?cid='.$this->config->item('agodaAID')); 
                 }
 
             }
