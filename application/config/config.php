@@ -15,7 +15,7 @@ $config['bookingAID'] = 347294;
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://local.dealHotel.com';
+$config['base_url']	= 'http://local.dealhotel.com';
 
 /*
 |--------------------------------------------------------------------------
