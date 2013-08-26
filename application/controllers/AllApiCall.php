@@ -59,6 +59,16 @@ class AllApiCall extends CI_Controller{
                 $arrayInfo['rooms'] = "room1=1,3";
                 $arrayInfo['numberOfResult'] = $numberOfResult;
                 
+                $arrayInfo['no_of_rooms'] = trim($_POST['fce']);
+                $arrayInfo['adults'] = trim($_POST['fcf']);
+                $arrayInfo['child'] = trim($_POST['fcg']);
+                
+//               echo "<pre>";
+//               print_r($arrayInfo);
+//               echo "</pre>";
+//               die();
+                
+                
                 $this->AllsupplierHotelList($arrayInfo);
     }
 

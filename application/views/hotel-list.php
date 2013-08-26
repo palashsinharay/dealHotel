@@ -170,7 +170,7 @@
 									<label for="fcd">Check Out</label>
 									<input type="text" id="fcd" name="fcd" value="<?php echo $checkOut;?>" required>
 								</span>							</p>
-<!--							<h3><span>04.</span> Who?</h3>
+						<h3><span>04.</span> Who?</h3>
 							<p class="select-a">
 								<span>
 									<label for="fce">Rooms</label>
@@ -201,7 +201,7 @@
 										<option>04</option>
 										<option>05</option>
 									</select>
-								</span>							</p>-->
+								</span>							</p>
 <!--                                                            <p>       
                                                                 <input type="checkbox" id="searchBoxContainer_NoDates" name="searchBoxContainer_NoDates" value="searchBoxContainer_NoDates"><label>I don't have specifick dates yet</label>
                                                             </p>-->
