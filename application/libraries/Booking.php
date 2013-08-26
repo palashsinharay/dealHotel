@@ -125,12 +125,18 @@ class Booking {
             $checkIn = date_format($dateIN, 'Y-m-d');
             $checkOut = date_format($dateOUT, 'Y-m-d');
             $rooms = $arrayInfo['rooms'];
+            $no_of_rooms = $arrayInfo['no_of_rooms'];
+            $adults = $arrayInfo['adults'];
+            $child = $arrayInfo['child'];
             $numberOfResult = $arrayInfo['numberOfResult'];
             
             //https://distribution-xml.booking.com/json/bookings.getHotelAvailability?arrival_date=2013-08-13&departure_date=2013-08-15&countrycodes=be
            $str='https://'.$this->userId.':'.$this->password.'@distribution-xml.booking.com/json/bookings.getHotelAvailability?'.
                 'arrival_date='.$checkIn.
                 '&departure_date='.$checkOut.
+                '&available_rooms='.$no_of_rooms.
+                '&guest_qty='.$adults.
+                '&children_qty='.$child.
                 '&city_ids='.$city.
                 '&countrycodes='.$countryCode.
                 '&rows='.$numberOfResult;
