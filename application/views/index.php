@@ -557,9 +557,9 @@ switch ($value[0]->class) {
 					<div>
 						<h3>Support &amp; Help</h3>
 						<ul>
-							<li><a href="./">Payment options</a></li>
-							<li><a href="./">FAQ</a></li>
-							<li><a href="./">Privacy &amp; Policy</a></li>
+							<li><a href="<?php echo base_url('welcome/page/5');?>">Payment options</a></li>
+							<li><a href="<?php echo base_url('welcome/page/4');?>">FAQ</a></li>
+							<li><a href="<?php echo base_url('welcome/page/9');?>">Privacy &amp; Policy</a></li>
 						</ul>
 					</div>
 					<div>

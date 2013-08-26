@@ -37,6 +37,23 @@
             ));
     }
     
+    function getCountryName()
+    {
+            
+	    
+             //echo $SqlInfo="SELECT  country_name FROM  countries_ip  WHERE ('".str_replace(".", "", getenv("REMOTE_ADDR")) ."' BETWEEN ip_from AND ip_to)";
+              echo $SqlInfo="SELECT  country_name FROM  countries_ip  WHERE ('".str_replace(".", "", getenv("REMOTE_ADDR")) ."' BETWEEN ip_from AND ip_to)";
+             $query = $this->db->query($SqlInfo);
+             $this->result = $query->result();             
+		//echo $this->db->last_query();
+                echo "<pre>";
+		print_r($this->result);
+		echo "</pre>";
+                //die();
+	       //return $this->result;
+
+    }
+    
 //    function test()
 //    {
 //        echo "hii";
