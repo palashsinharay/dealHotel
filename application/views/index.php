@@ -24,6 +24,7 @@
 //print_r($recently_booked_hotel_id);
 //echo "</pre>";
 ?>
+
 <!doctype html>
 <html lang="en" class="a">
 	<head>
@@ -51,6 +52,13 @@
 			$(this).delay(300).fadeTo(300,0).prev('input').val('');
 		});	
 		</script>
+                
+          
+          <link rel="stylesheet" type="text/css" href="<?php echo base_url('jqvmap/jqvmap.css');?>" media="print">
+          <script src="<?php echo base_url('jqvmap/jquery.vmap.js')?>" type="text/javascript"></script>
+          <script src="<?php echo base_url('jqvmap/maps/jquery.vmap.world.js')?>" type="text/javascript"></script>
+	  <script src="<?php echo base_url('jqvmap/data/jquery.vmap.sampledata.js')?>" type="text/javascript"></script>
+                
 	</head>
 	<body>
 		<div id="root">
@@ -86,8 +94,8 @@
 						<li class="gb"><span>En</span>
 							<ul>
 								<li class="de"><a href="./">Deutsh</a></li>
-								<li class="es"><a href="./">Español</a></li>
-								<li class="fr"><a href="./">Français</a></li>
+								<li class="es"><a href="./">EspaÃ±ol</a></li>
+								<li class="fr"><a href="./">FranÃ§ais</a></li>
 								<li class="pl"><a href="./">Polski</a></li>
 							</ul>
 						</li>
@@ -378,8 +386,8 @@
                     <header class="module-a" style="background-color:#0099FF; box-shadow:none; padding: 7px 0 0 0;margin:0px;">
 						<label class="figure_heading_right" style="color:#FFFFFF;">Compare Hotels</label>
 					</header>
-						
-                                            <a><img src="<?php echo base_url('images/hotel_logos.png')?>" style="margin-top:2px"></a>
+				 		
+                                            <div id="vmap" style="width: 464px; height: 266px;"></div>
                     
                     </figure>
 				</div>
@@ -679,5 +687,36 @@ function validateEmail(user_email){
     }
 }
     </script>
+    
+     <script type="text/javascript">
+	 $(document).ready(function(){
+           
+		$('#vmap').vectorMap({
+		    map: 'world_en',
+		    backgroundColor: '#333333',
+		    borderColor: '#818181',
+                    borderOpacity: 0.25,
+                    borderWidth: 1,
+                    color: '#f4f3f0',
+                    enableZoom: true,
+                    hoverColor: '#c9dfaf',
+                    hoverOpacity: null,
+                    normalizeFunction: 'linear',
+                    scaleColors: ['#b6d6ff', '#005ace'],
+                    selectedColor: '#c9dfaf',
+                    selectedRegion: null,
+                    showTooltip: true,
+	   onRegionClick: function(element, code, region)
+	    {
+	        //var message = code;
+             alert(code);
+             window.location.replace("<?php echo base_url('welcome/map')?>"+'/'+code);
+	       
+	    }
+	
+		});
+	});
+	</script>
+    
 	</body>
 </html>

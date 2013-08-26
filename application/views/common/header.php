@@ -17,6 +17,10 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('styles/mystyle.css');?>">
 	  <script src="<?php echo base_url('javascript/jquery.min.js')?>"></script>
 	  <script src="<?php echo base_url('javascript/jquery-ui.min.js')?>"></script>
+          
+          
+          
+          
                 
 	</head>
 	<body>
