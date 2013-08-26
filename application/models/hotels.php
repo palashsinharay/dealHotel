@@ -7,7 +7,7 @@ class Hotels extends CI_Model {
 	public $_dealbookingdetails = 'dealbookingdetails';
         public $_countries_ip = 'countries_ip';
         public $_dhbhoteldetails = 'dhbhoteldetails';
-       
+        public $_dhbregion = 'dhbregion';
 	public $result = null;
 
 	function __construct()
@@ -70,6 +70,12 @@ class Hotels extends CI_Model {
             return $this->result;
 	}        
 
+        function get_region_id($country_code)
+	{
+           $query = $this->db->get_where($this->_dhbregion,array('country_code =' => $country_code),1);
+           $this->result = $query->result();
+           return $this->result;
+	}       
 
     
         
